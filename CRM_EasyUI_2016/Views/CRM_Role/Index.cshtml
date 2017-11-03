@@ -1,0 +1,249 @@
+﻿@using CRM_EasyUI_2016;
+@using GroupThink.CRM.Common;
+@using System;
+@using GroupThink.CRM.Model.Sys;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+
+                        //List<PermModel> perm = (List<PermModel>)ViewBag.Perm;
+                        //if (perm == null)
+                        //{
+                        //    perm = new List<PermModel>();
+                        //}
+}
+<style type="text/css">
+    .datagrid-btable td[field="DeptName"] > div
+    {
+        line-height: 19px;
+    }
+</style>
+<div region="center" border="false">
+<div class="easyui-layout" fit="true">
+    <div data-options="region:'west',split:false,border:true" style="width: 220px; background: #fafafa;
+        border-right: none; overflow-x: auto; overflow-y: auto;">
+        <div class="top_panel">
+            <strong>部门列表</strong>
+            <input type="hidden" id="txtorganizeId"/>
+        </div>
+        <div class="menu_tr">
+            <ul class="easyui-tree" id="deptTree">
+            </ul>
+        </div>
+    </div>
+    <div region="center" style="overflow: auto; background: #fff; border-bottom: none;">
+        <div class="easyui-layout" fit="true">
+            <div region="north" border="false" class="north_box">
+                <div class="b-search">
+                    <ul class="ul_s1">
+                    </ul>
+                </div>
+                <div class="box_btn">
+                    @Html.BsButtonO("btnCreate", "添加", "btn btn-primary", "icon-plus")
+                    @Html.BsButtonO("btnEdit", "编辑", "btn btn-primary", "icon-file-text")
+                    @Html.BsButtonO("btnDetails", "详情", "btn btn-primary", "icon-shrink")
+                    @Html.BsButtonO("btnDelete", "删除", "btn btn-primary", "icon-cross")
+                </div>
+            </div>
+            <div region="center" border="false" class="bb" style="padding: 0 10px;">
+                <table id="List">
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<div id="modalwindow" class="dialog_tt easyui-window " data-options="modal:true,closed:true,minimizable:false,shadow:false"
+    style="z-index: 9999">
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#deptTree').tree({
+            url: '/CRM_Dept/InitTree',
+            checkbox: false,
+            onlyLeafCheck: true,
+            onBeforeExpand: function (node, param) {
+            },
+            onClick: function (node) {
+                $("#txtorganizeId").val(node.id);
+                $('#List').treegrid({
+                    url: '/CRM_Role/GetJsList1?oid=' + $("#txtorganizeId").val() + '&pid=0'
+                });
+                $('#List').treegrid('unselectAll');
+            },
+            loadFilter: function (data) {
+                if (data.d) {
+                    return data.d;
+                } else {
+                    return data;
+                }
+            }
+        });
+
+        $('#List').treegrid({
+            url: '/CRM_Role/GetJsList1',
+            //width: $(window).width() - 10,
+            methord: 'post',
+            //height: $(window).height() - 35,
+            fitColumns: true,
+            fit: true,
+            //            sortName: 'DeptID',
+            //            sortOrder: 'desc',
+            treeField: 'Name',
+            idField: 'ID',
+            pagination: true, //
+            striped: true, //奇偶行是否区分
+            singleSelect: false, //单选模式
+            rownumbers: true, //行号
+            columns: [[
+                { field: 'ck', checkbox: true },
+                { field: 'ID', title: 'ID', width: 50, align: 'center', hidden: true },
+                { field: 'CreateTimes', title: '操作', width: 50, align: 'center',
+                    formatter: function (value, rowData) {
+                        return "<a href='#' onclick='javascript:openIframe1(" + rowData.ID + ")'>分配用户</a>";
+                    }
+                },
+                { field: 'Name', title: '角色名称', width: 100, align: 'left',
+                    formatter: function (value, rowData) {
+                        return "<a href='#' onclick='javascript:openIframe2(" + rowData.ID + ")'>" + value + "</a>";
+                    }
+                },
+                { field: 'DeptName', title: '部门名称', width: 150, align: 'left' },
+                { field: 'Des', title: '角色描述', width: 100, align: 'left' },
+                { field: 'Enable', title: '是否启用', width: 50, align: 'center',
+                    formatter: function (val, rec) {
+                        if (val == 1) {
+                            val = "是";
+                            return '<span style="color:red;">' + val + '</span>';
+                        } else {
+                            val = "否";
+                            return val;
+                        }
+                    }
+                }
+            ]],
+            onBeforeLoad: function (row, param) {
+                if (row) {
+                    var id = row.ID == undefined ? 0 : row.ID;
+                    $(this).treegrid('unselectAll');
+                    $(this).treegrid('options').url = '/CRM_Role/GetJsList1?oid=' + $("#txtorganizeId").val() + '&pid=' + id;
+                }
+            }
+        });
+    });
+    function openIframe1(id) {
+        $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_Role/SelectUser?id=" + id + "'></iframe>");
+        $("#modalwindow").window({ title: '选择用户', width: 640, height: 420, iconCls: 'icon-add' }).window('open');
+    }
+    function openIframe2(id) {
+        $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_Role/Details?id=" + id + "'></iframe>");
+        $("#modalwindow").window({ title: '详情', width: 640, height: 420, iconCls: 'icon-details' }).window('open');
+    }  
+    //生成唯一的GUID
+    function GetGuid() {
+        var s4 = function () {
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        };
+        return s4() + s4() + s4() + "-" + s4();
+    }
+</script>
+<script type="text/javascript">
+
+    //ifram 返回
+    function frameReturnByClose() {
+        $("#modalwindow").window('close');
+    }
+    //iframe 返回并刷新
+    function frameReturnByReload(flag) {
+        $("#List").datagrid('reload');
+    }
+    //输出信息
+    function frameReturnByMes(mes) {
+        $.messageBox5s('提示', mes);
+    }
+    $(function () {
+        $("#btnCreate").click(function () {
+            if ($("#txtorganizeId").val() != null && $("#txtorganizeId").val() != "") {
+                $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_Role/Create?oid=" + $("#txtorganizeId").val()+"'></iframe>");
+                $("#modalwindow").window({ title: '添加角色', width: 640, height: 420, iconCls: 'icon-edit' }).window('open');
+            }
+            else {
+                $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_Role/Create?oid=0'></iframe>");
+                $("#modalwindow").window({ title: '添加角色', width: 640, height: 420, iconCls: 'icon-edit' }).window('open');
+            }
+        });
+        $("#btnEdit").click(function () {
+            var row = $('#List').treegrid('getSelected');
+            if (row != null) {
+                $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_Role/Edit?id=" + row.ID + "&Ieguid=" + GetGuid() + "'></iframe>");
+                $("#modalwindow").window({ title: '编辑', width: 640, height: 420, iconCls: 'icon-edit' }).window('open');
+            } else { $.messageBox5s('提示', '请选择要操作的记录!'); }
+        });
+        $("#btnDetails").click(function () {
+            var rows = $('#List').treegrid('getSelections');
+            if (rows.length > 1) {
+                $.messageBox5s('提示', msg.cantMoreShow);
+            }
+            else {
+                var row = $('#List').treegrid('getSelected');
+                if (row != null) {
+
+                    $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_Role/Details?id=" + row.ID + "&Ieguid=" + GetGuid() + "'></iframe>");
+                    $("#modalwindow").window({ title: '详情', width: 640, height: 420, iconCls: 'icon-details' }).window('open');
+                } else { $.messageBox5s('提示', msg.chooseRecord); }
+            }
+        });
+        $("#btnQuery").click(function () {
+            var queryStr = $("#txtQuery").val();
+            //如果查询条件为空默认查询全部
+            if (queryStr == null) {
+                queryStr = "%";
+            }
+            $('#List').treegrid({
+                url: '/CRM_Role/GetList_?queryStr=' + encodeURI(queryStr)
+            });
+        });
+        //删除
+        $("#btnDelete").click(function () {
+            var ids = [];
+            var rows = $('#List').treegrid('getSelections');
+            var IsAdmin = false;
+            for (var i = 0; i < rows.length; i++) {
+                ids.push(rows[i].ID);
+                console.log(rows[i].Name);
+                if (rows[i].Name.indexOf("管理员") >= 0) {
+                    IsAdmin = true;
+                }
+            }
+            if (ids.length > 0) {
+                if (IsAdmin) {
+                    $.show_alert('提示', '不能删除系统管理员!');
+                } else {
+                    $.messager.confirm('提示', '你确定要删除吗?', function (r) {
+                        if (r) {
+                            for (var i = 0; i < ids.length; i++) {
+                                $.post("/CRM_Role/Delete?id=" + ids[i], function (data) {
+                                    if (data == 1) {
+                                        $("#List").treegrid("clearSelections");
+                                        $("#List").treegrid('reload');
+                                        $.messageBox5s('提示', msg.successDelete);
+                                    } else if (data == 2) {
+                                        $.messageBox5s('警告', '超级管理员禁止删除！');
+                                    }
+                                    else {
+                                        $.messageBox5s('提示', msg.failDelete);
+                                    }
+                                }, "json");
+                            }
+                        }
+                    });
+                }
+            } else { $.messageBox5s('提示', msg.chooseDelete); }
+        });
+
+        $("#btnReload").click(function () {
+            $("#List").datagrid('reload');
+        });
+
+    });
+</script>

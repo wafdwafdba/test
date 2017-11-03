@@ -1,0 +1,199 @@
+﻿@using CRM_EasyUI_2016;
+@using GroupThink.CRM.Common;
+@using GroupThink.CRM.Model.Sys;
+@{
+    //List<PermModel> perm = (List<PermModel>)ViewBag.Perm;
+    //if (perm == null)
+    //{
+    //    perm = new List<PermModel>();
+    //}
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+}
+<style type="text/css">
+    .datagrid-btable td[field="Name"] > div
+    {
+        line-height: 19px;
+    }
+    .datagrid-header-row, .datagrid-row
+    {
+        height: 50px;
+    }
+</style>
+<div data-options="region:'center',split:false,border:false" style="padding: 5px;">
+    <div class="easyui-layout" fit="true">
+        <div data-options="region:'north',split:false,border:false"  align="right">
+            <div class="btn bootbtn titlebtn">
+                <a href="javascript:void(0)" class="bt_node" id="btnSave"><i class="ic_t19"></i><strong>
+                    权限分配</strong></a>
+            </div>
+        </div>
+        <div data-options="region:'west',split:false,border:true" style="width: 440px; border-top: none;
+            background: #fff;">
+            <table id="RoleList">
+            </table>
+            <input type="hidden" id="roleId" />
+        </div>
+        <div data-options="region:'east',split:false,border:true" style="width: 450px; border-top: none;
+            background: #fff;">
+            <table id="OptList">
+            </table>
+        </div>
+        <div data-options="region:'center',split:false,border:true" style="border-bottom: 1px solid #d3d3d3;">
+                <table id="ModuleList">
+                </table>
+                <input type="hidden" id="moduleId" />
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#btnSave").click(function () {
+            var ids = [];
+            var rows = $('#OptList').datagrid('getSelections');
+            if (rows.length > 0) {
+                for (var i = 0; i < rows.length; i++) {
+                    ids.push(rows[i].KeyCode);
+                }
+            }
+            else {
+                ids = null;
+                $.show_alert('提示', '选择操作项!');
+            }
+
+            $.ajax({
+                traditional: true,
+                url: "/CRM_Right/Create",
+                type: "Post",
+                data: { roleId: $("#roleId").val(), moduleId: $("#moduleId").val(), operateList: ids },
+                dataType: "json",
+                success: function (data) {
+                    if (data == 1) {
+                        $.show_alert('提示', '分配完成!');
+                    }
+                    else {
+                        $.show_alert('提示', '分配出现错误!');
+                    }
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#RoleList').datagrid({
+            url: '/CRM_Role/GetList',
+            width: 450,
+            methord: 'post',
+            //height: $(window).height() - 35,
+            fit: true,
+            fitColumns: true,
+            sortName: 'ID',
+            border: false,
+            sortOrder: 'DESC',
+            idField: 'ID',
+            pageSize: SystemConfig.PageSize,
+            pageList: SystemConfig.PageList,
+            pagination: true,
+            striped: true, //奇偶行是否区分
+            singleSelect: true, //单选模式
+            rownumbers: true, //行号
+            columns: [[
+                { field: 'ID', title: 'ID', width: 50, align: 'center', hidden: true },
+                { field: 'Name', title: '角色名称', width: 100, align: 'center' },
+                { field: 'DeptName', title: '部门名称', width: 200, align: 'center',
+                    formatter: function (val, rowDara) {
+                        var name = val;
+                        if (val.length > 15) {
+                            name =  "..."+val.substring(val.length - 15, val.length);
+                        }
+                        return "<label title='" + val + "'>" + name + "</label>";
+                    }
+                },
+                { field: 'Des', title: '角色描述', width: 100, align: 'center' }
+            ]],
+            onClickRow: function (index, data) {
+                var row = $('#RoleList').datagrid('getSelected');
+                if (row != null) {
+                    $("#roleId").val(row.ID);
+                }
+                if (($("#roleId").val() != '' || $("#roleId").val() != null) &&
+                ($("#moduleId").val() != '' || $("#moduleId").val() != null)) {
+                    $('#OptList').datagrid("clearSelections");
+                    $('#OptList').datagrid({
+                        url: '/CRM_Right/GetOptListByModule?rid=' + encodeURI($("#roleId").val()) + '&mid=' + encodeURI($("#moduleId").val())
+                    });
+                }
+            }
+        });
+
+        $('#ModuleList').treegrid({
+            url: '/CRM_Module/GetList',
+            width: 400,
+            methord: 'post',
+            height: $(window).height() - 55,
+            fit: true,
+            fitColumns: true,
+            treeField: 'Name',
+            idField: 'ID',
+            border: false,
+            pagination: false,
+            striped: true, //奇偶行是否区分
+            singleSelect: true, //单选模式
+            //rownumbers: true,//行号
+            columns: [[
+                    { field: 'ID', title: '唯一标识', width: 100, hidden: true },
+                    { field: 'Name', title: '名称', width: 100, sortable: true }
+                ]],
+            onClickRow: function (index, data) {
+                var row = $('#ModuleList').treegrid('getSelected');
+                if (row != null) {
+                    $("#moduleId").val(row.ID);
+                }
+                if ($("#roleId").val() == '' || $("#roleId").val() == null) {
+                    $.show_alert('提示', '请先选择角色!');
+                }
+                else {
+                    $('#OptList').datagrid("clearSelections");
+                    $('#OptList').datagrid({
+                        url: '/CRM_Right/GetOptListByModule?rid=' + encodeURI($("#roleId").val()) + '&mid=' + encodeURI($("#moduleId").val())
+                    });
+                }
+            }
+        });
+        $('#OptList').datagrid({
+            url: '/CRM_Module/GetOptListByModule',
+            width: 255,
+            methord: 'post',
+            //height: $(window).height() - 35,
+            fit: true,
+            fitColumns: true,
+            sortName: 'Sort',
+            sortOrder: 'DESC',
+            idField: 'ID',
+            border: false,
+            pageSize: 1000,
+            pagination: false,
+            striped: true, //奇偶行是否区分
+            singleSelect: false, //单选模式
+            rownumbers: true, //行号
+            columns: [[
+                { field: 'ID', title: 'ID', width: 80, hidden: true },
+                { field: 'Name', title: '名称', width: 80, sortable: true },
+                { field: 'KeyCode', title: '操作码', width: 80, sortable: true },
+                { field: 'ModuleId', title: '所属模块', width: 80, sortable: true, hidden: true },
+                { field: 'ck', checkbox: true }
+                     ]],
+            onLoadSuccess: function (data) {
+                if (data) {
+                    $.each(data.rows, function (index, item) {
+                        if (item.IsSelect == true) {
+                            $('#OptList').datagrid('checkRow', index);
+                        }
+                    });
+                }
+            }
+        });
+
+    });   
+</script>

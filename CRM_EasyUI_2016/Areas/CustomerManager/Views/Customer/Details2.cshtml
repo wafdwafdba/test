@@ -1,0 +1,101 @@
+﻿@model GroupThink.CRM.Model.Sys.GroupThink_CRM_Customer_Model
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+    if('@Model.IsDefault' == 1){
+        $("#IsDefault").html('是');
+        }else{
+        $("#IsDefault").html('否');
+        }
+    });
+</script>
+<div data-options="region:'center',border:false" style="padding:5px;overflow:auto">
+    <table class="add_wrap" width="100%">
+        <tbody>                                          
+            <tr>
+                <td class="title" style="width:20%">
+                    @Html.LabelFor(model => model.ContactName)：
+                </td>               
+                <td width="30%">
+                    @Html.DisplayFor(model => model.ContactName)
+                </td>
+              
+                <td class="title" style="width:20%">
+                    @Html.LabelFor(model => model.IsDefault)：
+                </td>               
+                <td width="30%">                                   
+                    <label id="IsDefault"></label> 
+                </td>
+               
+            </tr>                     
+            <tr>
+                <td class="title" style="width:20%">
+                    @Html.LabelFor(model => model.Tel)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.Tel)
+                </td>
+                         
+                <td class="title" style="width:20%">
+                    @Html.LabelFor(model => model.Phone)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.Phone)
+                </td>
+              
+            </tr> 
+            <tr>
+                <td class="title" style="width:20%">
+                    @Html.LabelFor(model => model.Email)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.Email)
+                </td>
+               
+                <td class="title" style="width:20%">
+                    @Html.LabelFor(model => model.Fax)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.Fax)
+                </td>
+               
+            </tr>  
+            <tr>
+                <td class="title" style="width:20%">
+                    @Html.LabelFor(model => model.QQ)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.QQ)
+                </td>
+
+                <td class="title" style="width:20%">
+                    @Html.LabelFor(model => model.Weixin)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.Weixin)
+                </td>
+                
+            </tr>  
+            <tr>
+                <td class="title" style="width:20%">
+                    @Html.LabelFor(model => model.WW)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.WW)
+                </td>
+
+                <td class="title" style="width:20%">
+                    @Html.LabelFor(model => model.Weibo)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.Weibo)
+                </td>
+              
+            </tr>  
+           
+        </tbody>
+    </table>
+</div>

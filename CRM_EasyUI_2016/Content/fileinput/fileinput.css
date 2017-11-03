@@ -1,0 +1,211 @@
+
+a
+{
+    text-decoration:none;
+}
+.file-loading
+{
+    top: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    font-size: 999px;
+    text-align: right;
+    color: #fff;
+    background: transparent url('Images/loading.gif') top left no-repeat;
+    border: none;
+}
+
+.btn-file
+{
+    position: relative;
+    overflow: hidden;
+     top:0px;
+}
+
+.btn-file input[type=file]
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    text-align: right;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    background: none repeat scroll 0 0 transparent;
+    cursor: inherit;
+    display: block;
+}
+
+.file-error-message
+{
+    padding: 5px;
+}
+
+.file-caption-disabled
+{
+    background-color: #EEEEEE;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+.file-preview
+{
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 1px;
+    width: 100%;
+    margin-bottom: 5px;
+    height: 50px;
+}
+
+.file-preview-frame
+{
+    margin-right: 4px;
+    height: 50px;
+    border: 1px solid #ddd;
+    padding: 0px;
+    float: left;
+    text-align: center;
+    vertical-align: middle;
+    width: 50px;
+    position: relative;
+}
+
+.file-preview:hover
+{
+    cursor: pointer;
+}
+
+.loading
+{
+    background: transparent url('Images/loading.gif') no-repeat scroll center center content-box !important;
+}
+
+.hide
+{
+    display: none !important;
+}
+
+.input-group
+{
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+
+.cp_img_jia
+{
+    width: 50px;
+    height: 50px;
+    float: left;
+    border: 1px solid #D3D3D3;
+    margin-right: 0px;
+    background: transparent url("Images/cp_img_tj.png") no-repeat scroll 0% 0%;
+}
+
+.imglist
+{
+    width: 100%;
+    height: 50px;
+    display: block;
+    margin-bottom: 5px;
+}
+.cp_img
+{
+    border: 1px solid #D3D3D3;
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
+    float: left;
+    position: relative;
+}
+.cp_img_jian
+{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background: url("Images/cp_img_sc.png") no-repeat scroll 0% 0%;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+    display: none;
+}
+
+
+.successinfo
+{
+    display: none;
+    color: #5CB85C;
+    position:absolute;
+    top: 30px;
+    left: 30px;
+}
+
+.cp_img_jia:hover
+{
+    background: url("Images/cp_img_tj_a.png") no-repeat;
+    cursor: pointer;
+}
+.progress
+{
+    width:100%;
+    height: 15px;
+    overflow: hidden;
+    background-color: #5CB85C;
+    border-radius: 4px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1) inset;
+}
+.progress-bar-success
+{
+    background-color: #5CB85C;
+}
+.progress-bar
+{
+    float: left;
+    width: 0px;
+    height: 100%;
+    font-size: 12px;
+    color: #FFF;
+    text-align: center;
+    background-color: #428BCA;
+    box-shadow: 0px -1px 0px rgba(0, 0, 0, 0.15) inset;
+    transition: width 0.6s ease 0s;
+}
+.file-input-new .file-preview, .file-input-new .close, .file-input-new .glyphicon-file, .file-input-new .fileinput-remove-button, .file-input-new .fileinput-upload-button, .file-input-ajax-new .fileinput-remove-button, .file-input-ajax-new .fileinput-upload-button {
+    display: none;
+}
+.input-group-btn > .btn {
+    position: relative;
+}
+.btn-default {
+    color: #333;
+    background-color: #FFF;
+    border-color: #CCC;
+}
+.btn {
+    display: inline-block;
+   
+}
+.kv-fileinput-upload
+{
+width:50px;
+height:50px;
+ background: url("Images/sc.png") no-repeat scroll 0% 0%;
+margin-right: 0px;   
+margin-bottom: 0px;
+font-size: 14px;
+font-weight: normal;
+line-height: 1.42857;
+text-align: center;
+white-space: nowrap;
+vertical-align: middle;
+cursor: pointer;
+padding: 0px;
+ margin-top:0px;
+-moz-user-select: none;
+}
+
+.add_wrap span{color:Red}

@@ -1,0 +1,781 @@
+﻿@model GroupThink.CRM.Model.Sys.GroupThink_CRM_Customer_Model
+@using GroupThink.CRM.Common;
+@using GroupThink.CRM.Web;
+@using GroupThink.CRM.Model.Sys;
+@{
+    List<PermModel> perm = (List<PermModel>)ViewBag.Perm;
+    if (perm == null)
+    {
+        perm = new List<PermModel>();
+    }
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
+}
+<script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/pinyin.js")" type="text/javascript"></script>
+@Styles.Render("~/Style/css/style.css")
+<div id="dlg" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false">
+</div>
+<div class="easyui-layout" fit="true">
+    <div region="center" border="false" style="overflow: auto; padding: 5px;">
+        @using (Html.BeginForm("Create", "GroupThink_CRM_Customer", null, FormMethod.Post, new { Id = "CreateForm" }))
+        {
+            @Html.ValidationSummary(true)
+            <input type="hidden" id="IsValid" />
+            <table class="add_wrap" width="100%">
+                <thead>
+                    <tr>
+                        <td colspan="4" align="center">
+                            <div class="btn sub_btn" style="padding: 0; font-weight: normal">
+                                @Html.ToolButtonEdit("btnSave", "bt_node", "保存")
+                                @Html.ToolButtonEdit("btnClose", "bt_node", "关闭")
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="cust">
+                        <td colspan="4" class="title">
+                            客户基本信息
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.UserName)：
+                        </td>
+                        <td class="ipt">
+                            <div>
+                                @Html.TextBoxFor(model => model.UserName, new { @class = "input-search" })
+                                @Html.HiddenFor(model => model.UserId)
+                                @Html.ValidationMessageFor(model => model.UserName)
+                            </div>
+                        </td>
+                        <td class="title">
+                            @Html.LabelFor(model => model.CustomerName)：
+                        </td>
+                        <td class="ipt">
+                            @Html.TextBoxFor(model => model.CustomerName)
+                            @Html.ValidationMessageFor(model => model.CustomerName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title" id='iscom1' style="display: none;">
+                            @Html.LabelFor(model => model.IsCompany)：
+                        </td>
+                        <td class="ipt" id='iscom2' style="display: none;">
+                            @Html.DropDownListFor(model => model.IsCompany, (IEnumerable<SelectListItem>)ViewData["IsCompany"], "--请选择--")
+                            @Html.ValidationMessageFor(model => model.IsCompany)
+                        </td>
+                        <td class="title">
+                            @Html.LabelFor(model => model.CustomerPinYin)：
+                        </td>
+                        <td class="ipt">
+                            @Html.TextBoxFor(model => model.CustomerPinYin)
+                            @Html.ValidationMessageFor(model => model.CustomerPinYin)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.CustomerPY)：
+                        </td>
+                        <td class="ipt">
+                            @Html.TextBoxFor(model => model.CustomerPY)
+                            @Html.ValidationMessageFor(model => model.CustomerPY)
+                        </td>
+                        <td class="title">
+                            @Html.LabelFor(model => model.CustomerType)：
+                        </td>
+                        <td class="ipt">
+                            @Html.DropDownListFor(model => model.CustomerType, (IEnumerable<SelectListItem>)ViewData["CustomerType"], "--请选择--")
+                            @Html.ValidationMessageFor(model => model.CustomerType)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.CustomerLevel)：
+                        </td>
+                        <td class="ipt">
+                            @Html.DropDownListFor(model => model.CustomerLevel, (IEnumerable<SelectListItem>)ViewData["CustomerLevel"], "--请选择--")
+                            @Html.ValidationMessageFor(model => model.CustomerLevel)
+                        </td>
+                        <td class="title">
+                            @Html.LabelFor(model => model.CustomerWeb)：
+                        </td>
+                        <td class="ipt">
+                            @Html.TextBoxFor(model => model.CustomerWeb)
+                            @Html.ValidationMessageFor(model => model.CustomerWeb)
+                        </td>
+                    </tr>
+                    <tr id="EC">
+                        <td class="title" id="ec1">
+                            @Html.LabelFor(model => model.CompanyNature)：
+                        </td>
+                        <td id="ec2" class="ipt">
+                            @Html.DropDownListFor(model => model.CompanyNature, (IEnumerable<SelectListItem>)ViewData["CompanyNature"], "--请选择--")
+                            @Html.ValidationMessageFor(model => model.CompanyNature)
+                        </td>
+                        <td id="ec3" class="title">
+                            @Html.LabelFor(model => model.EmployeeNum)：
+                        </td>
+                        <td id="ec4" class="ipt">
+                            @Html.DropDownListFor(model => model.EmployeeNum, (IEnumerable<SelectListItem>)ViewData["EmployeeNum"], "--请选择--")
+                            @Html.ValidationMessageFor(model => model.EmployeeNum)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.CustomerBusiness)：
+                        </td>
+                        <td class="ipt">
+                            @Html.DropDownListFor(model => model.CustomerBusiness, (IEnumerable<SelectListItem>)ViewData["CustomerBusiness"], "--请选择--")
+                            @Html.ValidationMessageFor(model => model.CustomerBusiness)
+                        </td>
+                        <td class="title">
+                            @Html.LabelFor(model => model.CustomerState)：
+                        </td>
+                        <td class="ipt">
+                            @Html.DropDownListFor(model => model.CustomerState, (IEnumerable<SelectListItem>)ViewData["CustomerState"], "--请选择--")
+                            @Html.ValidationMessageFor(model => model.CustomerState)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.CustomerProperty)：
+                        </td>
+                        <td class="ipt">
+                            @Html.DropDownListFor(model => model.CustomerProperty, (IEnumerable<SelectListItem>)ViewData["CustomerProperty"], "--请选择--")
+                            @Html.ValidationMessageFor(model => model.CustomerProperty)
+                        </td>
+                        <td class="title">
+                            @Html.LabelFor(model => model.CustomerSource)：
+                        </td>
+                        <td class="ipt">
+                            @Html.DropDownListFor(model => model.CustomerSource, (IEnumerable<SelectListItem>)ViewData["CustomerSource"], "--请选择--")
+                            @Html.ValidationMessageFor(model => model.CustomerSource)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.AttendProduct)：
+                        </td>
+                        <td class="ipt">
+                            @Html.TextBoxFor(model => model.AttendProduct_, new { @class = "input-search" })
+                            @Html.HiddenFor(model => model.AttendProduct)
+                            @Html.ValidationMessageFor(model => model.AttendProduct_)
+                        </td>
+                        <td class="title">
+                            @Html.LabelFor(model => model.AttendTag)：
+                        </td>
+                        <td class="ipt">
+                            @Html.TextBoxFor(model => model.AttendTag_, new { @class = "input-search" })
+                            @Html.HiddenFor(model => model.AttendTag)
+                            @Html.ValidationMessageFor(model => model.AttendTag_)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.Competitor)：
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.Competitor_, new { @class = "input-search" })
+                            @Html.HiddenFor(model => model.Competitor)
+                            @Html.ValidationMessageFor(model => model.Competitor_)
+                        </td>
+                        <td class="title">
+                            @Html.LabelFor(model => model.BusinessLicense)：
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.BusinessLicense)
+                            @Html.ValidationMessageFor(model => model.BusinessLicense)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.CustomerSourceDesc)：
+                        </td>
+                        <td colspan="3">
+                            @Html.TextAreaFor(model => model.CustomerSourceDesc, new { cols = "40", rows = "6" })
+                            @Html.ValidationMessageFor(model => model.CustomerSourceDesc)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            客户地址：
+                        </td>
+                        <td colspan="3">
+                            @Html.DropDownListFor(model => model.ProvinceID, ViewData["Province"] as IEnumerable<SelectListItem>, "--请选择--")
+                            @Html.DropDownListFor(model => model.CityID, new List<SelectListItem>())
+                            @Html.DropDownListFor(model => model.AreaID, new List<SelectListItem>())
+                            @Html.ValidationMessageFor(model => model.ProvinceID)
+                            @Html.ValidationMessageFor(model => model.CityID)
+                            @Html.ValidationMessageFor(model => model.AreaID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.Address)：
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.Address, new { @class = "input-address" })
+                            @Html.ValidationMessageFor(model => model.Address)
+                        </td>
+                        <td class="title">
+                            地图选址：
+                        </td>
+                        <td>
+                            <input type="text" class="txtv input-medium input-search" id="SelectLngLat" />
+                            <input type="hidden" id="Longitude" name="Longitude" />
+                            <input type="hidden" id="Latitude" name="Latitude" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.ZipCode)：
+                        </td>
+                        <td class="ipt" colspan="3">
+                            @Html.TextBoxFor(model => model.ZipCode)
+                            @Html.ValidationMessageFor(model => model.ZipCode)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            附件上传：
+                        </td>
+                        <td colspan="3">
+                            <div>
+                                <input id="file_upload" name="file_upload" type="file" multiple="multiple" />
+                                <div id="fileQueue" class="fileQueue">
+                                </div>
+                                <div id="div_files">
+                                </div>
+                            </div>
+                            <div style="width: 100%; height: auto; overflow: hidden;" id="AttachmentList" class="ex-persion">
+                                选择需要上传的文件！
+                            </div>
+                            @Html.Hidden("hd_Error", "0")
+                        </td>
+                    </tr>
+                    <tr class="cust">
+                        <td class="title" colspan="4" align="left">
+                            联系人信息
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.Label("联系人名称")：
+                        </td>
+                        <td class="ipt">
+                            @Html.TextBox("ContactName")
+                            @Html.ValidationMessage("ContactName")
+                        </td>
+                        <td class="title">
+                            @Html.Label("默认联系人")：
+                        </td>
+                        <td class="ipt">
+                            @Html.CheckBox("IsDefault", new { disabled = "disabled" })
+                            @Html.ValidationMessage("IsDefault")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.Label("手机号码")：
+                        </td>
+                        <td class="ipt">
+                            @Html.TextBox("Tel")
+                            @Html.ValidationMessage("Tel")
+                        </td>
+                        <td class="title">
+                            @Html.Label("传真")：
+                        </td>
+                        <td class="ipt">
+                            @Html.TextBox("Fax")
+                            @Html.ValidationMessage("Fax")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.Label("办公电话")：
+                        </td>
+                        <td class="ipt">
+                            @Html.TextBox("Phone")
+                            @Html.ValidationMessage("Phone")
+                        </td>
+                        <td class="title">
+                            @Html.Label("Email")：
+                        </td>
+                        <td class="ipt">
+                            @Html.TextBox("Email")
+                            @Html.ValidationMessage("Email")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.Label("Q Q")：
+                        </td>
+                        <td class="ipt">
+                            @Html.TextBox("QQ")
+                            @Html.ValidationMessage("QQ")
+                        </td>
+                        <td class="title">
+                            @Html.Label("微信")：
+                        </td>
+                        <td>
+                            @Html.TextBox("Weixin")
+                            @Html.ValidationMessage("Weixin")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.Label("旺旺")：
+                        </td>
+                        <td class="ipt">
+                            @Html.TextBox("WW")
+                            @Html.ValidationMessage("WW")
+                        </td>
+                        <td class="title">
+                            @Html.Label("微博")：
+                        </td>
+                        <td>
+                            @Html.TextBox("Weibo")
+                            @Html.ValidationMessage("Weibo")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.Label("生日")：
+                        </td>
+                        <td class="ipt" colspan="3">
+                            @Html.TextBoxFor(model => model.BirthDay, new { @class = "input-medium Wdate", onClick = "WdatePicker({skin:'twoer',dateFmt:'yyyy-MM-dd'})" })
+                            @Html.ValidationMessage("BirthDay")
+                        </td>
+                    </tr>
+                    <tr class="cust">
+                        <td class="title" colspan="4" align="left">
+                            描述信息
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.Label("描述信息")：
+                        </td>
+                        <td colspan="3">
+                            @Html.TextArea("Des", new { cols = "40", rows = "6" })
+                            @Html.ValidationMessage("Des")
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="add_wrap" width="100%" style="border-top: none">
+                <thead>
+                    <tr>
+                        <td colspan="4" align="center">
+                            <div class="btn sub_btn" style="padding: 0; font-weight: normal">
+                                @Html.ToolButtonEdit("btnSave-f", "bt_node", "保存")
+                                @Html.ToolButtonEdit("btnClose-f", "bt_node", "关闭")
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        }
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#UserId").val('@ViewData["UserId"]');
+        $("#UserName").val('@ViewData["UserName"]');
+        $("#IsDefault").attr("checked", "checked");
+        $("#CustomerType").rules("remove", "required");
+        $("#CustomerBusiness").rules("remove", "required");
+        var filterType = GetQueryString("FilterType");
+        var filterValue = GetQueryString("FilterValue");
+
+        if (filterValue == "21" || filterValue == "14") {//
+            var selIndex = filterValue == "21" ? 14 : 21;
+            $("#iscom1").css("display", "");
+            $("#iscom2").css("display", "");
+            $("#IsCompany option[value='" + selIndex + "']").remove();
+        }
+        else {
+            $("#iscom1").css("display", "");
+            $("#iscom2").css("display", "");
+        }
+
+        //公司
+        if (filterValue == "14") {
+            $("#IsCompany").val("14");
+            $.ajax({
+                url: "/GroupThink_CRM_DefaultValueCreateCompanyCustomer/GetDefaultValueCompany",
+                type: "Post",
+                dataType: "json",
+                success: function (data) {
+                    var array = eval(data);
+                    $("#CustomerType").val(array.CustomerType);
+                    $("#CustomerLevel").val(array.CustomerLevel);
+                    $("#CustomerProperty").val(array.CustomerProperty);
+                    $("#CustomerBusiness").val(array.CustomerBusiness);
+                    $("#EmployeeNum").val(array.EmployeeNum);
+                    $("#CustomerSource").val(array.CustomerSource);
+                    $("#CustomerState").val(array.CustomerState);
+                    $("#CompanyNature").val(array.CompanyNature);
+                }
+            });
+
+        }
+        //个人
+        if (filterValue == "21") {
+            $("#IsCompany").val("21");
+            $("#ec1").css("display", "none");
+            $("#ec2").css("display", "none");
+            $("#ec3").css("display", "none");
+            $("#ec4").css("display", "none");
+
+            $("#CustomerBusiness").val("");
+            $("#EmployeeNum").val("");
+            $("#CompanyNature").val("");
+            $.ajax({
+                url: "/GroupThink_CRM_DefaultValueCreatePersonCustomer/GetDefaultValuePerson",
+                type: "Post",
+                dataType: "json",
+                success: function (data) {
+                    var array = eval(data);
+                    $("#CustomerType").val(array.CustomerType);
+                    $("#CustomerLevel").val(array.CustomerLevel);
+                    $("#CustomerProperty").val(array.CustomerProperty);
+                    $("#CustomerSource").val(array.CustomerSource);
+                    $("#CustomerState").val(array.CustomerState);
+                }
+            });
+
+        }
+
+        //地图选址
+        $("#SelectLngLat").click(function () {
+            var url = "/GroupThink_CRM_AmbitusCustomer/SelectLngLat?CityName=" + $("#CityID").find("option:selected").text() + "&Address=" + $("#Address").val();
+            $("#dlg").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='" + url + "'></iframe>");
+            $("#dlg").window({ title: '地图选址', width: 800, height: 600, iconCls: 'icon-add' }).window('open');
+        });
+
+
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnClose,#btnClose-f").click(function () {
+            window.parent.frameReturnByClose()
+        });
+        $("#btnSave,#btnSave-f").click(function () {
+            $("#IsValid").val(true);
+            if ($("#CreateForm").valid()) {
+                $.ajax({
+                    url: "/GroupThink_CRM_Customer/Create",
+                    type: "Post",
+                    data: $("#CreateForm").serialize() + "&list=" + JSON.stringify(fileArr),
+                    dataType: "json",
+                    success: function (data) {
+                        return $.messageBox5s('提示', data.Message);
+                    }
+                });
+            }
+        });
+        $("#CustomerName").blur(function () {
+            $("#CustomerPinYin").val(pinyin.getFullChars(this.value));
+            $("#CustomerPY").val(pinyin.getCamelChars(this.value));
+        });
+        //公司/个人
+        $("#IsCompany").change(function () {
+            var vals = $("#IsCompany option:selected").val();
+            if (vals == 21) {//个人
+                // $("#EC").css("display", "none");
+                $("#ec1").css("display", "none");
+                $("#ec2").css("display", "none");
+                $("#ec3").css("display", "none");
+                $("#ec4").css("display", "none");
+
+                $("#CustomerBusiness").val("");
+                $("#EmployeeNum").val("");
+                $("#CompanyNature").val("");
+                $.ajax({
+                    url: "/GroupThink_CRM_DefaultValueCreatePersonCustomer/GetDefaultValuePerson",
+                    type: "Post",
+                    dataType: "json",
+                    success: function (data) {
+                        var array = eval(data);
+                        $("#CustomerType").val(array.CustomerType);
+                        $("#CustomerLevel").val(array.CustomerLevel);
+                        $("#CustomerProperty").val(array.CustomerProperty);
+                        $("#CustomerSource").val(array.CustomerSource);
+                        $("#CustomerState").val(array.CustomerState);
+                    }
+                });
+
+            }
+            else if (vals == 14) {//公司
+                //$("#EC").css("display", "block");
+                $("#ec1").css("display", "");
+                $("#ec1").addClass("title");
+                $("#ec2").css("display", "");
+                $("#ec2").addClass("ipt");
+                $("#ec3").css("display", "");
+                $("#ec3").addClass("title");
+                $("#ec4").css("display", "");
+                $("#ec4").addClass("ipt");
+
+                $.ajax({
+                    url: "/GroupThink_CRM_DefaultValueCreateCompanyCustomer/GetDefaultValueCompany",
+                    type: "Post",
+                    dataType: "json",
+                    success: function (data) {
+                        var array = eval(data);
+                        $("#CustomerType").val(array.CustomerType);
+                        $("#CustomerLevel").val(array.CustomerLevel);
+                        $("#CustomerProperty").val(array.CustomerProperty);
+                        $("#CustomerBusiness").val(array.CustomerBusiness);
+                        $("#EmployeeNum").val(array.EmployeeNum);
+                        $("#CustomerSource").val(array.CustomerSource);
+                        $("#CustomerState").val(array.CustomerState);
+                        $("#CompanyNature").val(array.CompanyNature);
+                    }
+                });
+
+            }
+            else {
+                $("#CustomerType").val("");
+                $("#CustomerLevel").val("");
+                $("#CustomerProperty").val("");
+                $("#CustomerBusiness").val("");
+                $("#EmployeeNum").val("");
+                $("#CustomerSource").val("");
+                $("#CustomerState").val("");
+                $("#CompanyNature").val("");
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+
+    $(function () {
+        $("#UserName").live("click", function () {
+            $("#dlg").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/GroupThink_CRM_Customer/SelectUser'></iframe>");
+            $("#dlg").window({ title: '选择负责人', width: 500, height: 320, iconCls: 'icon-add' }).window('open');
+        });
+        $("#AttendProduct_").live("click", function () {
+            $("#dlg").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/GroupThink_CRM_Common/SelectMoreProduct'></iframe>");
+            $("#dlg").window({ title: '选择产品', width: 500, height: 320, iconCls: 'icon-add' }).window('open');
+        });
+        $("#AttendTag_").live("click", function () {
+            $("#dlg").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/GroupThink_CRM_Customer/SelectTag'></iframe>");
+            $("#dlg").window({ title: '选择标签', width: 500, height: 200, iconCls: 'icon-add' }).window('open');
+        });
+        $("#Competitor_").live("click", function () {
+            openWindow("dlg", "/GroupThink_CRM_Common/SelectCompetitor", "选择竞争对手", "max", "icon-add");
+        });
+        $("#btnCancel").click(function () {
+            window.parent.frameReturnByClose()
+        })
+
+
+    });
+
+    function frameReturnByClose() {
+        $("#dlg").window('close');
+        if ($("#IsValid").val()) {
+            $("#CreateForm").valid();
+        }
+    }
+    function InitProductTable(obj) {
+        $("#dlg").window('close');
+        if (obj != null) {
+            if (obj.length > 0) {
+                var p = "";
+                var p_ = "";
+                for (var i = 0; i < obj.length; i++) {
+                    var row = eval("(" + obj[i] + ")");
+                    p += row.Id + ",";
+                    p_ += row.ProductName + ",";
+                }
+                $("#AttendProduct").val(p.toString().substring(0, p.length - 1));
+                $("#AttendProduct_").val(p_.toString().substring(0, p_.length - 1));
+            }
+        }
+    }
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#ProvinceID").change(function () {
+            $.ajax({
+                url: "/GroupThink_CRM_ProvinceCityDistrict/SelectProvince",
+                type: "Post",
+                data: { ProvinceId: $("#ProvinceID").val() },
+                dataType: "json",
+                success: function (data) {
+                    document.getElementById("CityID").options.length = 0;
+                    $("#CityID").append("<option value=''>--请选择--</option>");
+                    document.getElementById("AreaID").options.length = 0;
+                    $("#AreaID").append("<option value=''>--请选择--</option>");
+                    for (var i = 0; i < data.length; i++) {
+                        $("#CityID").append("<option value='" + data[i].Value + "'>" + data[i].Text + "</option>");
+                    }
+                }
+            });
+        });
+
+        $("#CityID").change(function () {
+            $.ajax({
+                url: "/GroupThink_CRM_ProvinceCityDistrict/SelectCity",
+                type: "Post",
+                data: { CityId: $("#CityID").val() },
+                dataType: "json",
+                success: function (data) {
+                    document.getElementById("AreaID").options.length = 0;
+                    $("#AreaID").append("<option value=''>--请选择--</option>");
+                    for (var j = 0; j < data.length; j++) {
+                        $("#AreaID").append("<option value='" + data[j].Value + "'>" + data[j].Text + "</option>");
+                    }
+                }
+            });
+        });
+    });
+</script>
+<!--附件上传-->
+@Styles.Render("~/Scripts/uploadify/uploadify.css")
+@Scripts.Render("~/bundles/json2")
+<script src="@Url.Content("~/Scripts/uploadify/jquery.uploadify.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    var fileArr = [];
+    $(function () {
+        //添加界面的附件管理
+        $('#file_upload').uploadify({
+            //'buttonImage': '/Scripts/uploadify/uploadify-browse.png',            //浏览按钮的图片的路径 。   
+            'buttonText': '请选择',  //按钮文本
+            //'hideButton': true,
+            'swf': '/Scripts/uploadify/uploadify.swf',  //FLash文件路径
+            'wmode': 'transparent', //设置该项为transparent 可以使浏览按钮的flash背景文件透明，并且flash文件会被置为页面的最高层   
+            'height': 20,  //设置浏览按钮的高度   
+            'width': 80,  //设置浏览按钮的宽度                                         
+            'uploader': '/Common/Upload',                       //处理文件上传Action              
+            'auto': true,                                 //选择文件后是否自动上传，默认为true
+            'multi': true,                                 //是否为多选，默认为true
+            'queueSizeLimit': 10,
+            'removeCompleted': true,                       //是否完成后移除序列，默认为true
+            'fileSizeLimit': '10MB',                       //单个文件大小，0为无限制，可接受KB,MB,GB等单位的字符串值
+            'fileTypeDesc': '',                 //文件描述
+            'fileTypeExts': '*.gif; *.jpg; *.png; *.bmp;*.tif;*.doc;*.xls;*.ppt;*.docx;*.xlsx;*.pptx;*.pdf;*.cad;',  //上传的文件后缀过滤器
+            'onUploadStart': function (file) {
+                var myself = this;
+                if (FileNameIsExist(file.name)) {
+                    this.cancelUpload(file.id);
+                    $('#' + file.id).remove();
+                    $('#hd_Error').val("1");
+                    $.messageBox5s('提示', "文件 【" + file.name + "】 已存在");
+                } else if (fileArr.length == $('#file_upload').uploadify('settings', 'queueSizeLimit')) {
+                    this.cancelUpload(file.id);
+                    $('#' + file.id).remove();
+                    $('#hd_Error').val("1");
+                    $.messageBox5s('提示', "上传的文件数量已经超出系统限制的" + $('#file_upload').uploadify('settings', 'queueSizeLimit') + "个文件！");
+                }
+                else {
+                    $('#hd_Error').val("0");
+                }
+            },
+            'onSelectError': function (file, errorCode, errorMsg) { //返回一个错误，选择文件的时候触发必须用alert                
+                switch (errorCode) {
+                    case -100:
+                        alert("上传的文件数量已经超出系统限制的" + $('#file_upload').uploadify('settings', 'queueSizeLimit') + "个文件！");
+                        break;
+                    case -110:
+                        alert("文件 【" + file.name + "】 大小超出系统限制的" + $('#file_upload').uploadify('settings', 'fileSizeLimit') + "大小！");
+                        break;
+                    case -120:
+                        alert("文件 【" + file.name + "】 大小异常！");
+                        break;
+                    case -130:
+                        alert("文件 【" + file.name + "】 类型不正确！");
+                        break;
+                }
+            },
+            'onUploadSuccess': function (file, data, response) {   //一个文件上传成功后的响应事件处理
+                var data = $.parseJSON(data);
+                if (data.type == 1) {
+                    fileArr_Add(data.fileData);
+                } else {
+                    $.messageBox5s('提示', data.message);
+                }
+            },
+            'onUploadError': function (event, queueId, fileObj, errorObj) {
+                if ($('#hd_Error').val() != "1") {
+                    alert(errorObj.type + "：" + errorObj.info);
+                }
+            }
+        });
+    });
+
+
+    function FileNameIsExist(fileName) {
+        var IsExist = false;
+        for (var index = 0; index < fileArr.length; index++) {
+            if (fileArr[index].OldFileName == fileName) {
+                IsExist = true;
+            }
+        }
+        return IsExist;
+    }
+
+    function fileArr_Add(objFile) {
+        if (!FileNameIsExist(objFile.OldFileName)) {
+            fileArr.push(objFile);
+        }
+        showFile();
+    }
+    function fileArr_Del(newFileName) {
+        for (var index = 0; index < fileArr.length; index++) {
+            if (fileArr[index].NewFileName == newFileName) {
+                fileArr.splice(index, 1);
+            }
+        }
+        showFile();
+    }
+
+    function showFile() {
+        var temp = '';
+        $.each(fileArr, function (index, item) {
+            temp += '<span class="ex-one" style="width: 160px; height: 130px;">'
+                    + '<img src="' + GetImgSrc(item.FileType, item.NewFileName, item.FilePath) + '" Id="' + item.FileId + '" width="99px" height="97px" />(' + item.FileSize + ')';
+            if (item.OldFileName.length > 10)
+                temp += "<label title='" + item.OldFileName + "'>" + item.OldFileName.substring(0, 7) + "..." + "</label>";
+            else
+                temp += "<label  title='" + item.OldFileName + "'>" + item.OldFileName + "</label>";
+            temp += '<b title="点击删除该附件" onclick="fileArr_Del(\'' + item.NewFileName + '\')" style="right:50px;">'
+                    + '</b></span>';
+        })
+        if (temp.length > 0) {
+            $('#AttachmentList').html(temp);
+        } else {
+            $('#AttachmentList').html("选择需要上传的文件！");
+        }
+        temp = null;
+    }
+
+    function GetImgSrc(imgType, NewFileName, FilePath) {
+        if (imgType == '.doc' || imgType == '.docx') {
+            return "/Content/Images/icon/word.jpg";
+        }
+        else if (imgType == '.xls' || imgType == '.xlsx') {
+            return "/Content/Images/icon/excel.jpg";
+        }
+        else if (imgType == '.ppt' || imgType == '.pptx') {
+            return "/Content/Images/icon/powerpoint.jpg";
+        }
+        else if (imgType == '.pdf') {
+            return "/Content/Images/icon/pdf.jpg";
+        }
+        else if (imgType == '.cad') {
+            return "/Content/Images/icon/cad.jpg";
+        }
+        else {
+            return FilePath + NewFileName;
+        }
+    }
+
+</script>

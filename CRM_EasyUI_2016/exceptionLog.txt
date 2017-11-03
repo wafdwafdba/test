@@ -1,0 +1,273 @@
+ï»¿
+
+
+Mapping types:
+String -> String
+System.String -> System.String
+
+Destination path:
+CRM_User.UserName.UserName
+
+Source value:
+(null)|   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.MapPropertyValue(ResolutionContext context, IMappingEngineRunner mapper, Object mappedObject, PropertyMap propertyMap)
+   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.Mappers.TypeMapMapper.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.MappingEngine.AutoMapper.IMappingEngineRunner.Map(ResolutionContext context)
+   ÔÚ AutoMapper.MappingEngine.MapCore(Object source, Object destination, Type sourceType, Type destinationType, MappingOperationOptions options)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination, Action`1 opts)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ GroupThink.CRM.BLL.CRM_User_BLL.Create(ValidationErrors& errors, CRM_User_Model model) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_BLL\CRM_User_BLL.cs:ĞĞºÅ 64|¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|2016/3/10 17:44:48
+
+
+Mapping types:
+String -> String
+System.String -> System.String
+
+Destination path:
+CRM_User.UserName.UserName
+
+Source value:
+(null)|   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.MapPropertyValue(ResolutionContext context, IMappingEngineRunner mapper, Object mappedObject, PropertyMap propertyMap)
+   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.Mappers.TypeMapMapper.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.MappingEngine.AutoMapper.IMappingEngineRunner.Map(ResolutionContext context)
+   ÔÚ AutoMapper.MappingEngine.MapCore(Object source, Object destination, Type sourceType, Type destinationType, MappingOperationOptions options)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination, Action`1 opts)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ GroupThink.CRM.BLL.CRM_User_BLL.Create(ValidationErrors& errors, CRM_User_Model model) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_BLL\CRM_User_BLL.cs:ĞĞºÅ 64|¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|2016/3/11 9:21:08
+
+
+Mapping types:
+String -> String
+System.String -> System.String
+
+Destination path:
+CRM_User.UserName.UserName
+
+Source value:
+(null)|   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.MapPropertyValue(ResolutionContext context, IMappingEngineRunner mapper, Object mappedObject, PropertyMap propertyMap)
+   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.Mappers.TypeMapMapper.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.MappingEngine.AutoMapper.IMappingEngineRunner.Map(ResolutionContext context)
+   ÔÚ AutoMapper.MappingEngine.MapCore(Object source, Object destination, Type sourceType, Type destinationType, MappingOperationOptions options)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination, Action`1 opts)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ GroupThink.CRM.BLL.CRM_User_BLL.Create(ValidationErrors& errors, CRM_User_Model model) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_BLL\CRM_User_BLL.cs:ĞĞºÅ 64|¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|2016/3/11 9:21:27
+
+
+Mapping types:
+String -> String
+System.String -> System.String
+
+Destination path:
+CRM_User.UserName.UserName
+
+Source value:
+(null)|   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.MapPropertyValue(ResolutionContext context, IMappingEngineRunner mapper, Object mappedObject, PropertyMap propertyMap)
+   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.Mappers.TypeMapMapper.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.MappingEngine.AutoMapper.IMappingEngineRunner.Map(ResolutionContext context)
+   ÔÚ AutoMapper.MappingEngine.MapCore(Object source, Object destination, Type sourceType, Type destinationType, MappingOperationOptions options)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination, Action`1 opts)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ GroupThink.CRM.BLL.CRM_User_BLL.Create(ValidationErrors& errors, CRM_User_Model model) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_BLL\CRM_User_BLL.cs:ĞĞºÅ 64|¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|2016/3/11 9:21:57
+
+
+Mapping types:
+String -> String
+System.String -> System.String
+
+Destination path:
+CRM_User.UserName.UserName
+
+Source value:
+(null)|   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.MapPropertyValue(ResolutionContext context, IMappingEngineRunner mapper, Object mappedObject, PropertyMap propertyMap)
+   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.Mappers.TypeMapMapper.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.MappingEngine.AutoMapper.IMappingEngineRunner.Map(ResolutionContext context)
+   ÔÚ AutoMapper.MappingEngine.MapCore(Object source, Object destination, Type sourceType, Type destinationType, MappingOperationOptions options)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination, Action`1 opts)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ GroupThink.CRM.BLL.CRM_User_BLL.Create(ValidationErrors& errors, CRM_User_Model model) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_BLL\CRM_User_BLL.cs:ĞĞºÅ 64|¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|2016/3/11 9:22:30
+
+
+Mapping types:
+String -> String
+System.String -> System.String
+
+Destination path:
+CRM_User.UserName.UserName
+
+Source value:
+(null)|   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.MapPropertyValue(ResolutionContext context, IMappingEngineRunner mapper, Object mappedObject, PropertyMap propertyMap)
+   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.Mappers.TypeMapMapper.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.MappingEngine.AutoMapper.IMappingEngineRunner.Map(ResolutionContext context)
+   ÔÚ AutoMapper.MappingEngine.MapCore(Object source, Object destination, Type sourceType, Type destinationType, MappingOperationOptions options)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination, Action`1 opts)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ GroupThink.CRM.BLL.CRM_User_BLL.Create(ValidationErrors& errors, CRM_User_Model model) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_BLL\CRM_User_BLL.cs:ĞĞºÅ 64|¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|2016/3/11 9:23:48
+
+
+Mapping types:
+String -> String
+System.String -> System.String
+
+Destination path:
+CRM_User.UserName.UserName
+
+Source value:
+(null)|   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.MapPropertyValue(ResolutionContext context, IMappingEngineRunner mapper, Object mappedObject, PropertyMap propertyMap)
+   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.Mappers.TypeMapMapper.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.MappingEngine.AutoMapper.IMappingEngineRunner.Map(ResolutionContext context)
+   ÔÚ AutoMapper.MappingEngine.MapCore(Object source, Object destination, Type sourceType, Type destinationType, MappingOperationOptions options)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination, Action`1 opts)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ GroupThink.CRM.BLL.CRM_User_BLL.Create(ValidationErrors& errors, CRM_User_Model model) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_BLL\CRM_User_BLL.cs:ĞĞºÅ 64|¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|2016/3/11 9:24:14
+
+
+Mapping types:
+String -> String
+System.String -> System.String
+
+Destination path:
+CRM_User.UserName.UserName
+
+Source value:
+(null)|   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.MapPropertyValue(ResolutionContext context, IMappingEngineRunner mapper, Object mappedObject, PropertyMap propertyMap)
+   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.Mappers.TypeMapMapper.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.MappingEngine.AutoMapper.IMappingEngineRunner.Map(ResolutionContext context)
+   ÔÚ AutoMapper.MappingEngine.MapCore(Object source, Object destination, Type sourceType, Type destinationType, MappingOperationOptions options)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination, Action`1 opts)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ GroupThink.CRM.BLL.CRM_User_BLL.Create(ValidationErrors& errors, CRM_User_Model model) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_BLL\CRM_User_BLL.cs:ĞĞºÅ 64|¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|2016/3/11 9:24:26
+
+
+Mapping types:
+String -> String
+System.String -> System.String
+
+Destination path:
+CRM_User.UserName.UserName
+
+Source value:
+(null)|   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.MapPropertyValue(ResolutionContext context, IMappingEngineRunner mapper, Object mappedObject, PropertyMap propertyMap)
+   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.Mappers.TypeMapMapper.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.MappingEngine.AutoMapper.IMappingEngineRunner.Map(ResolutionContext context)
+   ÔÚ AutoMapper.MappingEngine.MapCore(Object source, Object destination, Type sourceType, Type destinationType, MappingOperationOptions options)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination, Action`1 opts)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ GroupThink.CRM.BLL.CRM_User_BLL.Create(ValidationErrors& errors, CRM_User_Model model) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_BLL\CRM_User_BLL.cs:ĞĞºÅ 64|¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|2016/3/11 9:25:04
+
+
+Mapping types:
+String -> String
+System.String -> System.String
+
+Destination path:
+CRM_User.UserName.UserName
+
+Source value:
+(null)|   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.MapPropertyValue(ResolutionContext context, IMappingEngineRunner mapper, Object mappedObject, PropertyMap propertyMap)
+   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.Mappers.TypeMapMapper.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.MappingEngine.AutoMapper.IMappingEngineRunner.Map(ResolutionContext context)
+   ÔÚ AutoMapper.MappingEngine.MapCore(Object source, Object destination, Type sourceType, Type destinationType, MappingOperationOptions options)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination, Action`1 opts)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ GroupThink.CRM.BLL.CRM_User_BLL.Create(ValidationErrors& errors, CRM_User_Model model) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_BLL\CRM_User_BLL.cs:ĞĞºÅ 64|¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|2016/3/11 9:32:08
+
+
+Mapping types:
+String -> String
+System.String -> System.String
+
+Destination path:
+CRM_User.UserName.UserName
+
+Source value:
+(null)|   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.MapPropertyValue(ResolutionContext context, IMappingEngineRunner mapper, Object mappedObject, PropertyMap propertyMap)
+   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.Mappers.TypeMapMapper.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.MappingEngine.AutoMapper.IMappingEngineRunner.Map(ResolutionContext context)
+   ÔÚ AutoMapper.MappingEngine.MapCore(Object source, Object destination, Type sourceType, Type destinationType, MappingOperationOptions options)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination, Action`1 opts)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ GroupThink.CRM.BLL.CRM_User_BLL.Create(ValidationErrors& errors, CRM_User_Model model) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_BLL\CRM_User_BLL.cs:ĞĞºÅ 64|¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|2016/3/11 9:40:50
+
+
+Mapping types:
+String -> String
+System.String -> System.String
+
+Destination path:
+CRM_User.UserName.UserName
+
+Source value:
+(null)|   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.MapPropertyValue(ResolutionContext context, IMappingEngineRunner mapper, Object mappedObject, PropertyMap propertyMap)
+   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.Mappers.TypeMapMapper.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.MappingEngine.AutoMapper.IMappingEngineRunner.Map(ResolutionContext context)
+   ÔÚ AutoMapper.MappingEngine.MapCore(Object source, Object destination, Type sourceType, Type destinationType, MappingOperationOptions options)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination, Action`1 opts)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ GroupThink.CRM.BLL.CRM_User_BLL.Create(ValidationErrors& errors, CRM_User_Model model) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_BLL\CRM_User_BLL.cs:ĞĞºÅ 64|¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|2016/3/11 9:54:49
+
+
+Mapping types:
+String -> String
+System.String -> System.String
+
+Destination path:
+CRM_User.UserName.UserName
+
+Source value:
+(null)|   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.MapPropertyValue(ResolutionContext context, IMappingEngineRunner mapper, Object mappedObject, PropertyMap propertyMap)
+   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.Mappers.TypeMapMapper.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.MappingEngine.AutoMapper.IMappingEngineRunner.Map(ResolutionContext context)
+   ÔÚ AutoMapper.MappingEngine.MapCore(Object source, Object destination, Type sourceType, Type destinationType, MappingOperationOptions options)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination, Action`1 opts)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ GroupThink.CRM.BLL.CRM_User_BLL.Create(ValidationErrors& errors, CRM_User_Model model) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_BLL\CRM_User_BLL.cs:ĞĞºÅ 64|¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|2016/3/11 10:29:38
+
+
+Mapping types:
+String -> String
+System.String -> System.String
+
+Destination path:
+CRM_User.UserName.UserName
+
+Source value:
+(null)|   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.MapPropertyValue(ResolutionContext context, IMappingEngineRunner mapper, Object mappedObject, PropertyMap propertyMap)
+   ÔÚ AutoMapper.Mappers.TypeMapObjectMapperRegistry.PropertyMapMappingStrategy.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.Mappers.TypeMapMapper.Map(ResolutionContext context, IMappingEngineRunner mapper)
+   ÔÚ AutoMapper.MappingEngine.AutoMapper.IMappingEngineRunner.Map(ResolutionContext context)
+   ÔÚ AutoMapper.MappingEngine.MapCore(Object source, Object destination, Type sourceType, Type destinationType, MappingOperationOptions options)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination, Action`1 opts)
+   ÔÚ AutoMapper.MappingEngine.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   ÔÚ GroupThink.CRM.BLL.CRM_User_BLL.Create(ValidationErrors& errors, CRM_User_Model model) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_BLL\CRM_User_BLL.cs:ĞĞºÅ 64|¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|2016/3/11 10:29:48
+¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|   ÔÚ System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   ÔÚ System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   ÔÚ System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   ÔÚ System.Data.Objects.ObjectContext.SaveChanges()
+   ÔÚ GroupThink.CRM.DAL.CRM_User_Repository.Create(CRM_User entity) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_DAL\CRM_User_Repository.cs:ĞĞºÅ 35
+   ÔÚ GroupThink.CRM.BLL.CRM_User_BLL.Create(ValidationErrors& errors, CRM_User_Model model) Î»ÖÃ F:\ÔÓ¼Ç\MVC4+EasyUI¿ò¼Ü´î½¨\CRM_EasyUI_2016\CRM_EasyUI_BLL\CRM_User_BLL.cs:ĞĞºÅ 66|¸üĞÂÌõÄ¿Ê±³ö´í¡£ÓĞ¹ØÏêÏ¸ĞÅÏ¢£¬Çë²Î¼ûÄÚ²¿Òì³£¡£|2016/4/5 11:42:19

@@ -1,0 +1,152 @@
+﻿@model GroupThink.CRM.Model.Sys.CRM_ModuleOperate_Model
+@using GroupThink.CRM.Common;
+@using GroupThink.CRM.Model.Sys;
+@using CRM_EasyUI_2016;
+@{
+    ViewBag.Title = "创建";
+    Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
+    //List<PermModel> perm = (List<PermModel>)ViewBag.Perm;
+    //if (perm == null)
+    //{
+    //    perm = new List<PermModel>();
+    //}
+}
+<script type="text/javascript">
+    $(function () {
+        $("#btnClose").click(function () {
+            window.parent.frameReturnByClose()
+        });
+        $("#btnSave").click(function () {
+            if ($("form").valid()) {
+                $.ajax({
+                    url: '@Url.Action("CreateOpt")',
+                    type: "Post",
+                    data: $("form").serialize(),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.type == 1) {
+                            window.parent.frameReturnByMes(data.message);
+                            window.parent.frameReturnByReloadOpt(true);
+                            window.parent.frameReturnByClose()
+                        }
+                        else {
+                            window.parent.frameReturnByMes(data.message);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+        $("#btnReturn").click(function () {
+            window.parent.frameReturnByClose();
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#Operate").change(function () {            
+            if ($("#Operate").val() != '0') {
+                var txt = $("#Operate").find("option:selected").text().toString();
+                $("#Name").val(txt.substring(0, txt.indexOf("(")));
+                $("#KeyCode").val($("#Operate").val());
+                $("#Sort").val($("#Operate option:selected").attr('sort'));
+            }
+            else {
+                $("#Name").val('');
+                $("#KeyCode").val('');
+            }
+        });
+    });
+</script>
+<table width="100%" style="border: none">
+    <thead>
+        <tr>
+            <td align="center">
+                <div class="btn sub_btn" style="padding: 0; font-weight: normal">
+                  @Html.BsButtonT("button", "btnSave", "保存", "btn btn-primary")
+                  @Html.BsButtonT("button", "btnClose", "关闭", "btn btn-primary")                   
+                </div>
+            </td>
+        </tr>
+    </thead>
+</table>
+<div class="easyui-layout" fit="true">    
+    <div region="center" border="false" style="overflow: auto; padding: 5px;">
+        @using (Html.BeginForm())
+        {
+            @Html.HiddenFor(model => model.ID)
+            @Html.ValidationSummary(true)
+            <table class="add_wrap" width="100%">
+                <tbody>
+                    <tr>
+                        <td class="title" style="width: 25%">
+                            选择操作码：
+                        </td>
+                        <td class="ipt" style="width: 75%;">
+                            <select id="Operate" style="width: 150px">
+                                <option value="0">--请选择--</option>
+                                <option value="View" sort="0">查看(View)</option>
+                                <option value="Query" sort="1">查询(Query)</option>
+                                <option value="Create" sort="2">创建(Create)</option>
+                                <option value="Edit" sort="3">编辑(Edit)</option>
+                                <option value="Details" sort="4">详细(Details)</option>
+                                <option value="Delete" sort="5">删除(Delete)</option>
+                                <option value="BatchEnableFalse" sort="20">批量禁用(BatchEnableFalse)</option>
+                                <option value="BatchEnableTrue" sort="21">批量启用(BatchEnableTrue)</option>
+                                <option value="Reload" sort="22">刷新(Reload)</option>
+                                <option value="Import" sort="6">导入(Import)</option>
+                                <option value="Export" sort="7">导出(Export)</option>
+                                <option value="Allot" sort="8">分配(Allot)</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.Name)：
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.Name)
+                            <span>&nbsp;&nbsp;</span>@Html.ValidationMessageFor(model => model.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.KeyCode)：
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.KeyCode)
+                            <span>&nbsp;&nbsp;</span>@Html.ValidationMessageFor(model => model.KeyCode)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.ModuleId)：
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.ModuleId, new { @readOnly = "readOnly" })
+                            <span>&nbsp;&nbsp;</span>@Html.ValidationMessageFor(model => model.ModuleId)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.IsValid)：
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(model => model.IsValid, new { @checked = true })
+                            <span>&nbsp;&nbsp;</span>@Html.ValidationMessageFor(model => model.IsValid)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.Sort)：
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.Sort)
+                            <span>&nbsp;&nbsp;</span>@Html.ValidationMessageFor(model => model.Sort)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

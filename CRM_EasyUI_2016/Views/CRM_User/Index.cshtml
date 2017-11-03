@@ -1,0 +1,337 @@
+﻿@using CRM_EasyUI_2016;
+@using GroupThink.CRM.Common;
+@using System;
+@using GroupThink.CRM.Model.Sys;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+
+    //List<PermModel> perm = (List<PermModel>)ViewBag.Perm;
+    //if (perm == null)
+    //{
+    //    perm = new List<PermModel>();
+    //}
+}
+<style type="text/css">
+    .datagrid-btable td[field="DeptName"] > div
+    {
+        line-height: 19px;
+    }
+</style>
+<div region="center" border="false">
+    <div class="easyui-layout" fit="true">
+        <div region="north" border="false" class="north_box">
+            <div class="b-search" >
+               <ul class="ul_s1">
+                    <li class="sli-tt">
+                        <label class="t-s">
+                            用户名称：</label>
+                        <input type="text" id="UserName" />
+                    </li>
+                    <li>
+                        <label class="t-s">
+                            部门：</label>
+                        <select id="DeptID" name="DeptID">
+                            <option value="-1">--请选择--</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label class="t-s">
+                            角色：</label>
+                        <select id="RoleId" name="RoleId">
+                            <option value="-1">--请选择--</option>
+                        </select>
+                    </li>
+                </ul>
+                <ul class="ul_s2" >
+                    <li class="sli-tt">
+                        <label class="t-s">
+                            用户类型：</label>
+                        <select id="UserType" name="UserType">
+                            <option value="-1" selected="selected">--全部--</option>
+                            <option value="1">管理员</option>
+                            <option value="2">用户</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label class="t-s">
+                            用户状态：</label>
+                        <select id="UserState" name="UserState">
+                            <option value="-1" selected="selected">--全部--</option>
+                            <option value="1">正常使用</option>
+                            <option value="2">冻结</option>
+                            <option value="3">停用</option>
+                            <option value="4">离职</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>        
+             <div class="box_btn">
+               @Html.BsButtonO("btnQuery", "查询", "btn btn-primary", "icon-search")
+               @Html.BsButtonO("btnCreate", "添加", "btn btn-primary", "icon-plus")
+               @Html.BsButtonO("btnEdit", "编辑", "btn btn-primary", "icon-file-text")
+               @Html.BsButtonO("btnDetails", "详情", "btn btn-primary", "icon-shrink")
+               @Html.BsButtonO("btnDelete", "删除", "btn btn-primary", "icon-cross")
+            </div>
+        </div>
+        <div region="center" border="false" class="bb" style="padding: 0 10px;">
+            <table id="List">
+            </table>
+        </div>
+    </div>
+</div>
+<div id="modalwindow" class="dialog_tt easyui-window " data-options="modal:true,closed:true,minimizable:false,shadow:false"
+    style="z-index: 9999">
+</div>
+<script type="text/javascript">
+    //查询部门列表
+    $.ajax({
+        url: "/CRM_Dept/GetParentList",
+        type: "Post",
+        dataType: "json",
+        success: function (data) {
+            document.getElementById("DeptID").options.length = 0;
+            $("#DeptID").append("<option value='-1'>--请选择--</option>");
+            for (var i = 0; i < data.length; i++) {
+                var level = "";
+                for (var j = 0; j < data[i].Level; j++) {
+                    level += "&nbsp;&nbsp;&nbsp";
+                }
+                $("#DeptID").append("<option value='" + data[i].DeptID + "'>" + level + "" + data[i].DeptName + "</option>");
+            }
+        }
+    });
+
+    $(function () {
+        //部门ID改变之后带出角色列表
+        $("#DeptID").change(function () {
+            $.ajax({
+                url: "/CRM_Role/SelectDept",
+                type: "Post",
+                data: { DeptID: $("#DeptID").val() },
+                dataType: "json",
+                success: function (data) {
+                    document.getElementById("RoleId").options.length = 0;
+                    $("#RoleId").append("<option value='-1'>--请选择--</option>");
+                    for (var i = 0; i < data.length; i++) {
+                        var level = "";
+                        for (var j = 0; j < data[i].Level; j++) {
+                            level += "&nbsp;&nbsp;&nbsp";
+                        }
+                        $("#RoleId").append("<option value='" + data[i].Id + "'>" + level + "" + data[i].Name + "</option>");
+                    }
+                }
+            });
+        });
+        //获取用户列表
+        $('#List').datagrid({
+            url: '/CRM_User/GetList_',
+            methord: 'post',
+            fitColumns: true,
+            fit: true,
+            sortName: 'CreateTime',
+            sortOrder: 'desc',
+            idField: 'CreateTime',
+            pageSize: 10,
+            pageList: [10, 20, 30, 40, 50],
+            pagination: true,
+            singleSelect: true, //单选模式
+            //striped: true, //奇偶行是否区分
+            //rownumbers: true, //行号
+            columns: [[
+                { field: 'ck', checkbox: true },
+                { field: 'Operate', title: '操作', width: 100, align: 'left',
+                    formatter: function (value, rowData) {
+                        var val = "";
+                        switch (rowData.UserState) {
+                            case 1:
+                                val = "<a href='#' onclick='javascript:openIframe3(\"" + rowData.ID + "\",2)'>冻结</a>"
+                                   + "&nbsp;" + "<a href='#' onclick='javascript:openIframe3(\"" + rowData.ID + "\",3)'>停用</a>";
+                                break;
+                            case 2:
+                                val = "<a href='#' onclick='javascript:openIframe3(\"" + rowData.ID + "\",-2)'>取消冻结</a>"
+                                   + "&nbsp;" + "<a href='#' onclick='javascript:openIframe3(\"" + rowData.ID + "\",3)'>停用</a>";
+                                break;
+                            case 3:
+                                val = "<a href='#' onclick='javascript:openIframe3(\"" + rowData.ID + "\",1)'>启用</a>";
+                                break;
+                            case 4:
+                                val = "";
+                                break;
+                        }
+                        return "<a href='#' onclick='javascript:openIframe1(\"" + rowData.ID + "\")'>查看</a>"
+                       + "&nbsp;" + "<a href='#' onclick='javascript:openIframe2(\"" + rowData.ID + "\")'>编辑</a>"
+                       + "&nbsp;" + val
+                       + "&nbsp;" + "<br/><a href='#' onclick='javascript:openIframe4(\"" + rowData.ID + "\")'>重置密码</a>"
+                       + "&nbsp;" + "<a href='#' onclick='javascript:openIframe6(\"" + rowData.ID + "\")'>分配角色</a>";
+                    }
+                },
+                { field: 'ID', title: '用户名', width: 100, align: 'left' },
+                { field: 'UserName', title: '用户信息', width: 100, align: 'left',
+                    formatter: function (value, rowData) {
+                        var sexName = "";
+                        if (rowData.Sex == 0) {
+                            sexName = "男"
+                        }
+                        else {
+                            sexName = "女"
+                        }
+                        return "<a href='#' onclick='javascript:openIframe1(\"" + rowData.ID + "\")'>" + rowData.UserName + "</a>"
+                               + "<br/>  性别：" + sexName + "";
+                    }
+                },
+                { field: 'Tel', title: '联系方式', width: 100, align: 'left' },
+                { field: 'UserTypeName', title: '用户类型', width: 100, align: 'left' },
+                { field: 'DeptRole', title: '部门角色', width: 100, align: 'left' },
+                { field: 'UserStateName', title: '用户状态', width: 100, align: 'left' },
+                { field: 'CreateTime', title: '创建时间', width: 100, align: 'left' }
+            ]]
+        });
+    });
+
+        function openIframe1(id) {
+            $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_User/Details?id=" + id + "'></iframe>");
+            $("#modalwindow").window({ title: '用户详情', width: 640, height: 500, iconCls: 'icon-details' }).window('open');
+        }
+        function openIframe2(id) {
+            $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_User/Edit?id=" + id + "'></iframe>");
+            $("#modalwindow").window({ title: '编辑用户', width: 640, height: 500, iconCls: 'icon-edit' }).window('open');
+        }
+        function openIframe3(id, state) {
+            var _state = "";
+            switch (state) {
+                case 1:
+                    _state = "启用";
+                    break;
+                case 2:
+                    _state = "冻结";
+                    break;
+                case 3:
+                    _state = "停用";
+                    break;
+                case -2:
+                    _state = "取消冻结";
+                    break;
+            }
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $.messager.confirm('提示', '确定' + _state + '?', function (r) {
+                    if (r) {
+                        $.post("/CRM_User/ChangeState?id=" + id + "&state=" + state, function (data) {
+                            if (data == 1) {
+                                $("#List").datagrid('reload');
+                                $.messageBox5s('提示', msg.successOperate);
+                            } else {
+                                $.messageBox5s('提示', msg.failOperate);
+                            }
+                        }, "json");
+                    }
+                });
+            } else { $.messageBox5s('提示', msg.chooseRecord); }
+        }
+
+        function openIframe4(id) {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $.messager.confirm('提示', '确定重置该用户的密码吗?<br/>重置后的密码为：' + '默认密码：888888', function (r) {
+                    if (r) {
+                        $.post("/CRM_User/ResetPwd?id=" + id, function (data) {
+                            $("#List").datagrid('reload');
+                        }, "json");
+                        $.messageBox5s('提示', "已重置!");
+                    }
+                });
+            } else { $.messageBox5s('提示', msg.chooseRecord); }
+        }
+   
+        function openIframe6(id) {
+            $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_User/AllotRole?id=" + id + "'></iframe>");
+            $("#modalwindow").window({ title: '分配角色', width: 640, height: 420, iconCls: 'icon-add' }).window('open');
+        }
+  
+    //生成唯一的GUID
+    function GetGuid() {
+        var s4 = function () {
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        };
+        return s4() + s4() + s4() + "-" + s4();
+    }
+</script>
+<script type="text/javascript">
+
+    //ifram 返回
+    function frameReturnByClose() {
+        $("#modalwindow").window('close');
+    }
+    //iframe 返回并刷新
+    function frameReturnByReload(flag) {
+        $("#List").datagrid('reload');
+    }
+    //输出信息
+    function frameReturnByMes(mes) {
+        $.messageBox5s('提示', mes);
+    }
+    $(function () {
+
+        $("#btnCreate").click(function () {
+            $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_User/Create'></iframe>");
+            $("#modalwindow").window({ title: '添加', width: 640, height: 420, iconCls: 'icon-add' }).window('open');
+        });
+        $("#btnEdit").click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_User/Edit?id=" + row.ID + "&Ieguid=" + GetGuid() + "'></iframe>");
+                $("#modalwindow").window({ title: '编辑', width: 640, height: 420, iconCls: 'icon-edit' }).window('open');
+            } else { $.messageBox5s('提示', '请选择要操作的记录!'); }
+        });
+        $("#btnDetails").click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_User/Details?id=" + row.ID + "&Ieguid=" + GetGuid() + "'></iframe>");
+                $("#modalwindow").window({ title: '详情', width: 640, height: 420, iconCls: 'icon-details' }).window('open');
+            } else { $.messageBox5s('提示', msg.chooseRecord); }
+        });
+        $("#btnQuery").click(function () {
+            $('#List').datagrid({
+                url: '/CRM_User/GetList_?' + queryString()
+            });
+        });
+        //删除
+        $("#btnDelete").click(function () {
+            var ids = [];
+            var rows = $('#List').datagrid('getSelections');
+            for (var i = 0; i < rows.length; i++) {
+                ids.push(rows[i].ID);
+            }
+            if (ids.length > 0) {
+                $.messager.confirm('提示', '你确定要删除吗?', function (r) {
+                    if (r) {
+                        for (var i = 0; i < ids.length; i++) {
+                            $.post("/CRM_User/Delete?id=" + ids[i], function (data) {
+                                $("#List").datagrid('reload');
+                            }, "json");
+                        }
+                        $("#List").datagrid("clearSelections");
+                        $.messageBox5s('提示', msg.successDelete);
+                    }
+                });
+            } else { $.messageBox5s('提示', msg.chooseRecord); }
+        });
+
+        $("#btnReload").click(function () {
+            $("#List").datagrid('reload');
+        });
+    });
+
+    //查询字符串
+    function queryString() {
+        return encodeURI(
+          "UserName=" + $("#UserName").val()
+        + "&DeptID=" + $("#DeptID option:selected").val()
+        + "&RoleId=" + $("#RoleId option:selected").val()
+        + "&UserType=" + $("#UserType option:selected").val()
+        + "&UserState=" + $("#UserState option:selected").val()
+        );
+    }
+</script>

@@ -1,0 +1,40 @@
+﻿*{padding:0;margin:0;}
+body{ background:#1a6baa url(../Style/images/login_center_bg.gif) center center fixed; font:12px/1.5 tahoma,arial,Hiragino Sans GB,\5b8b\4f53;color:#666;}
+.input-minlus{width:40px;}
+.input-mini{width: 60px;}  
+.input-small{width:90px;}  
+.input-medium{width: 150px;}  
+.input-large{width: 210px;}  
+.input-xlarge{width: 270px;}  
+.input-xxlarge{width: 530px;}
+.login{width:820px;margin:154px auto 0;height:350px; position:relative; background:url(../Style/images/login_container_bg.png) 0 0 no-repeat;}
+.banner{width:290px;height:84px; top:85px; left:60px; position:absolute;}
+.gap{ position:absolute;top:44px; left:380px;}
+.container{width:340px; position:absolute;top:60px;right:50px;}
+.container table tr td{ padding:5px 0;height:24px;}
+.container table tr td input{ border:1px solid #d3d3d3;padding:3px 0 4px 2px;width:150px;}
+.container table tr td input,.container table tr td img,.container table tr td a.img-new{ display:inline-block; vertical-align:middle;}
+.container table tr td.title{width:100px;  text-align:right; font-size:14px;}
+.container table tr td a.check-on{ width:77px;height:60px; background:url(../Style/images/login_qc_btn.png) 0 0 no-repeat; display:block; text-indent:-9999em;}
+.container table tr td a.check-on:hover{ background-position:0 -60px;}
+.container table tr td input.input-mini{width:60px;}
+.container table tr td a.img-new{ text-decoration:none;color:#1d76b2;}
+.container table tr td a.img-new:hover{ text-decoration:underline;}
+
+input.input-validation-error, select.input-validation-error {
+    background-color: #FFEEEE;
+    border: 1px solid #FF0000;
+}
+input[type="text"], input[type="password"] {
+    height: 16px;
+    padding: 2px;
+}
+input[type="text"], input[type="password"], textarea {
+    border: 1px solid #CCCCCC;
+}
+.field-validation-error {
+    background: url("../Style/images/icons.png") no-repeat scroll 0 -271px rgba(0, 0, 0, 0);
+    color: #FF0000;
+    margin-bottom: -3px;
+    padding-left: 18px;
+}

@@ -1,0 +1,180 @@
+﻿@using CRM_EasyUI_2016;
+@using GroupThink.CRM.Common;
+@using System;
+@using GroupThink.CRM.Model.Sys;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+
+    //List<PermModel> perm = (List<PermModel>)ViewBag.Perm;
+    //if (perm == null)
+    //{
+    //    perm = new List<PermModel>();
+    //}
+}
+<style type="text/css">
+    .datagrid-btable td[field="DeptName"] > div
+    {
+        line-height: 19px;
+    }
+</style>
+<div region="center" border="false">
+    <div class="easyui-layout" fit="true">
+        <div region="north" border="false" class="north_box">
+            <div class="b-search">
+                <ul class="ul_s1">
+                  
+                </ul>
+            </div>        
+             <div class="box_btn">
+               @Html.BsButtonO("btnQuery", "查询", "btn btn-primary", "icon-search")
+               @Html.BsButtonO("btnCreate", "添加", "btn btn-primary", "icon-plus")
+               @Html.BsButtonO("btnEdit", "编辑", "btn btn-primary", "icon-file-text")
+               @Html.BsButtonO("btnDetails", "详情", "btn btn-primary", "icon-shrink")
+               @Html.BsButtonO("btnDelete", "删除", "btn btn-primary", "icon-cross")
+            </div>
+        </div>
+        <div region="center" border="false" class="bb" style="padding: 0 10px;">
+            <table id="List">
+            </table>
+        </div>
+    </div>
+</div>
+<div id="modalwindow" class="dialog_tt easyui-window " data-options="modal:true,closed:true,minimizable:false,shadow:false"
+    style="z-index: 9999">
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#List').treegrid({
+            url: '/CRM_Dept/GetList_',
+            //width: $(window).width() - 10,
+            methord: 'post',
+            //height: $(window).height() - 35,
+            fitColumns: true,
+            fit: true,
+            sortName: 'DeptID',
+            sortOrder: 'desc',
+            treeField: 'DeptName',
+            idField: 'DeptID',
+            pagination: true, //
+            striped: true, //奇偶行是否区分
+            singleSelect: false, //单选模式
+            rownumbers: true, //行号
+            columns: [[
+                { field: 'ck', checkbox: true },
+                { field: 'DeptID', title: 'ID', width: 100, align: 'left', hidden: true },
+                { field: 'DeptName', title: '部门名称', width: 100, align: 'left',
+                    formatter: function (value, rowData) {
+                        return "<a href='#' onclick='javascript:openIframe(" + rowData.DeptID + ")'>" + value + "</a>";
+                    }
+                },
+                { field: 'Des', title: '描述', width: 100, align: 'left',
+                    formatter: function (val, rec) {
+                        if (val.length > 25) {
+                            val = val.substr(0, 25) + '...';
+                        }
+                        return val;
+                    }
+                },
+                { field: 'IsEnable', title: '是否启用', width: 100, align: 'left',
+                    formatter: function (val, rec) {
+                        if (val == 1) {
+                            val = "是";
+                            return '<span style="color:red;">' + val + '</span>';
+                        } else {
+                            val = "否";
+                            return val;
+                        }
+                    }
+                }
+            ]]
+        });
+    });
+    function openIframe(deptid) {
+        $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_Dept/Details?deptid=" + deptid + "'></iframe>");
+        $("#modalwindow").window({ title: '详情', width: 640, height: 420, iconCls: 'icon-details' }).window('open');
+    }
+    //生成唯一的GUID
+    function GetGuid() {
+        var s4 = function () {
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        };
+        return s4() + s4() + s4() + "-" + s4();
+    }
+</script>
+<script type="text/javascript">
+
+    //ifram 返回
+    function frameReturnByClose() {
+        $("#modalwindow").window('close');
+    }
+    //iframe 返回并刷新
+    function frameReturnByReload(flag) {
+        $("#List").treegrid('reload');
+    }
+    //输出信息
+    function frameReturnByMes(mes) {
+        $.messageBox5s('提示', mes);
+    }
+    $(function () {
+
+        $("#btnCreate").click(function () {
+            $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_Dept/Create'></iframe>");
+            $("#modalwindow").window({ title: '添加', width: 640, height: 420, iconCls: 'icon-add' }).window('open');
+        });
+        $("#btnEdit").click(function () {
+            var row = $('#List').treegrid('getSelected');
+            if (row != null) {
+                $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_Dept/Edit?deptid=" + row.DeptID + "&Ieguid=" + GetGuid() + "'></iframe>");
+                $("#modalwindow").window({ title: '编辑', width: 640, height: 420, iconCls: 'icon-edit' }).window('open');
+            } else { $.messageBox5s('提示', '请选择要操作的记录!'); }
+        });
+        $("#btnDetails").click(function () {
+            var row = $('#List').treegrid('getSelected');
+            if (row != null) {
+                $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='no' frameborder='0' src='/CRM_Dept/Details?deptid=" + row.DeptID + "&Ieguid=" + GetGuid() + "'></iframe>");
+                $("#modalwindow").window({ title: '详情', width: 640, height: 420, iconCls: 'icon-details' }).window('open');
+            } else { $.messageBox5s('提示', msg.chooseRecord); }
+        });
+        $("#btnQuery").click(function () {
+            var queryStr = $("#txtQuery").val();
+            //如果查询条件为空默认查询全部
+            if (queryStr == null) {
+                queryStr = "%";
+            }
+            $('#List').treegrid({
+                url: '/CRM_Dept/GetList_?queryStr=' + encodeURI(queryStr)
+            });
+        });
+        //删除
+        $("#btnDelete").click(function () {
+            var ids = [];
+            var rows = $('#List').treegrid('getSelections');
+            for (var i = 0; i < rows.length; i++) {
+                ids.push(rows[i].DeptID);
+            }
+            if (ids.length > 0) {
+                $.messager.confirm('提示', '你确定要删除吗?', function (r) {
+                    if (r) {
+//                        for (var i = 0; i < ids.length; i++) {
+//                            $.post("/CRM_Dept/Delete?deptid=" + ids[i], function (data) {
+//                                $("#List").treegrid('reload');
+//                            }, "json");
+                        //                        }
+                        $.post("/CRM_Dept/Delete?deptid=" + ids, function (data) {
+                            $("#List").treegrid('reload');
+                        }, "json");
+                        $("#List").treegrid("clearSelections");
+                        $.messageBox5s('提示', msg.successDelete);
+                    }
+                });
+            } else { $.messageBox5s('提示', msg.chooseRecord); }
+        });
+
+        $("#btnReload").click(function () {
+            $("#List").treegrid('reload');
+        });
+
+    });
+</script>

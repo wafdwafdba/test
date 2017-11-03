@@ -1,0 +1,131 @@
+﻿@model GroupThink.CRM.Model.Sys.CRM_Dept_Model
+@using GroupThink.CRM.Common;
+@using CRM_EasyUI_2016;
+@using GroupThink.CRM.Model.Sys;
+@{
+    //List<PermModel> perm = (List<PermModel>)ViewBag.Perm;
+    //if (perm == null)
+    //{
+    //    perm = new List<PermModel>();
+    //}
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        $("#btnClose").click(function () {
+            window.parent.frameReturnByClose()
+        });
+        $("#btnSave").click(function () {
+            if ($("#EditForm").valid()) {
+                $.ajax({
+                    url: "/CRM_Dept/Edit",
+                    type: "Post",
+                    data: { DeptId: $("#DeptID").val(), DeptName: $("#DeptName").val(), ParentId: $("#Parent").combotree("getValue"), Des: $("#Des").val(), Enable: $("#IsEnable").is(':checked') },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data == 1) {
+                            window.parent.frameReturnByMes("修改成功!!");
+                            window.parent.frameReturnByReload(true);
+                            window.parent.frameReturnByClose();
+                        }
+                        else if (data == -1) {
+                            window.parent.frameReturnByMes("请勿重复添加部门名称");
+                        }
+                        else {
+                            window.parent.frameReturnByMes(msg.failOperate);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#Parent').combotree({
+            url: "/CRM_Dept/InitTree",
+//            onClick: function (node) {
+//                $("#selectParentId").val(node.id);
+//            }
+        })
+        $('#Parent').combotree('setValue', '@Model.ParentID');
+    })
+</script>
+<table width="100%" style="border: none">
+    <thead>
+        <tr>
+            <td colspan="4" align="center">
+                <div class="btn sub_btn" style="padding: 0; font-weight: normal">
+                    @Html.BsButtonT("submit", "btnSave", "保存", "btn btn-primary")
+                    @Html.BsButtonT("button", "btnClose", "关闭", "btn btn-primary")
+                </div>
+            </td>
+        </tr>
+    </thead>
+</table>
+<div class="easyui-layout" fit="true">
+    <div region="center" border="false" style="overflow: auto; padding: 5px;">
+        @using (Html.BeginForm("Edit", "CRM_Dept", null, FormMethod.Post, new { Id = "EditForm" }))
+        {
+            @Html.ValidationSummary(true)
+            <table class="add_wrap" width="100%">
+                <tbody>
+                    @Html.Hidden("selectParentId", @Model.ParentID)
+                    @Html.HiddenFor(model => model.DeptID)
+                    @Html.HiddenFor(model => model.ParentID)
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.DeptName)：
+                        </td>
+                        <td class="ipt" style="width: 75%">
+                            @Html.TextBoxFor(model => model.DeptName)<label class="lbl">*</label>
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.DeptName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.ParentID)：
+                        </td>
+                        <td>
+                            @Html.HiddenFor(model => model.ParentID)
+                            <select id="Parent" style="width:250px">
+                                <option value="1">--请选择--</option>
+                            </select>
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.ParentID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.Des)：
+                        </td>
+                        <td>
+                            @Html.TextAreaFor(model => model.Des, new { rows = "6", cols = "40" })
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.Des)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.IsEnable)：
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(model => model.IsEnable)
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.IsEnable)
+                            <span>&nbsp;&nbsp;</span>
+                            @* @Html.LabelFor(model => model.IsFenCompany)：
+                             <span>&nbsp;&nbsp;</span>
+                               @Html.CheckBoxFor(model => model.IsFenCompany)
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.IsFenCompany)*@
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

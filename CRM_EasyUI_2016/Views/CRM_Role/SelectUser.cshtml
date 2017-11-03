@@ -1,0 +1,135 @@
+﻿@model GroupThink.CRM.Model.Sys.CRM_User_Model
+@using CRM_EasyUI_2016;
+@using GroupThink.CRM.Common;
+@using System;
+@using GroupThink.CRM.Model.Sys;
+@{
+    //List<PermModel> perm = (List<PermModel>)ViewBag.Perm;
+    //if (perm == null)
+    //{
+    //    perm = new List<PermModel>();
+    //}
+    ViewBag.Title = "SelectUser";
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        $('#List').datagrid({
+            url: '/CRM_Role/GetUserList?id=@ViewData["RoleId"]',
+            //width: $(window).width() - 10,
+            methord: 'post',
+            //height: $(window).height() - 60,
+            fit: true,
+            fitColumns: true,
+            sortName: 'CreateTime',
+            sortOrder: 'desc',
+            idField: 'ID',
+            pageSize: 10,
+            pageList: 10,
+            pagination: false,
+            striped: true, //奇偶行是否区分
+            singleSelect: false, //多选模式
+            rownumbers: true, //行号
+            columns: [[
+                { field: 'ck', checkbox: true },
+                { field: 'UserName', title: '用户姓名', width: 100, align: 'center' },
+                { field: 'ID', title: '用户名', width: 100, align: 'center', 
+                    formatter: function (value, rowData) {
+                        return rowData.ID;
+                    }
+                }
+               
+            ]],
+            onLoadSuccess: function (data) {
+                if (data) {
+                    $.each(data.rows, function (index, item) {
+                        if (item.IsSelect == true) {
+                            $('#List').datagrid('checkRow', index);
+                        }
+                    });
+                }
+            }
+
+        });
+
+
+        //查询
+        $("#btnQuery").click(function () {
+            $('#List').datagrid({
+                url:'/CRM_Role/GetUserList?id=@ViewData["RoleId"]&userName='+$("#UserName").val(),
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+
+        $("#btnSave").click(function () {
+            var ids = [];
+            var rows = $('#List').datagrid('getSelections');
+            for (var i = 0; i < rows.length; i++) {
+                ids.push(rows[i].ID);
+            }
+            if (rows == null) {
+                $.show_alert('提示', '请选择用户!');
+            }
+            else {
+                $.ajax({
+                    traditional: true, //
+                    url: "/CRM_Role/CreateRoleUser",
+                    type: "Post",
+                    data: { userList: ids, roleId: '@ViewData["RoleId"]'},
+                    dataType: "json",
+                    success: function (data) {
+                        if (data == 1) {
+                            window.parent.frameReturnByMes("分配成功");
+                            window.parent.frameReturnByReload(true);
+                            window.parent.frameReturnByClose()
+                        }
+                        else {
+                            window.parent.frameReturnByMes("失败");
+                        }
+                    }
+                });
+            }
+        });
+        $("#btnClose").click(function () {
+            window.parent.frameReturnByClose();
+        });
+    });
+</script>
+
+<div region="center" border="false">
+    <div class="easyui-layout" fit="true">
+        <div region="north" border="false" class="north_box" style="padding: 0 5px;">
+            <div class="b-search">
+            </div>
+            <div class="btn">
+               
+                <label class="t-s">
+                            姓名：</label>
+                        <input id="UserName" name="UserName" type="text"  style="width:120px;border:1px solid gray"/>   
+                @Html.BsButtonO("btnQuery", "查询", "btn btn-primary", "icon-search")
+            </div>
+        </div>
+        <div region="center" border="false" class="bb" style="padding: 0 10px;">
+            <table id="List">
+            </table>
+        </div>
+    </div>
+</div>
+<div region="south" border="false" style="padding:5px;">
+<table width="100%" style="border:none">
+    <thead>
+        <tr>
+            <td align="center">
+                <div class="btn sub_btn" style="padding:0; font-weight:normal">
+             
+                @Html.BsButtonT("submit", "btnSave", "保存", "btn btn-primary")
+                @Html.BsButtonT("button", "btnClose", "关闭", "btn btn-primary")
+                </div>
+            </td>
+        </tr>
+    </thead>
+</table>
+</div>

@@ -1,0 +1,187 @@
+﻿@model GroupThink.CRM.Model.Sys.CRM_Module_Model
+@using GroupThink.CRM.Common;
+@using GroupThink.CRM.Model.Sys;
+@using CRM_EasyUI_2016;
+@{
+    ViewBag.Title = "创建";
+    Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
+    //List<PermModel> perm = (List<PermModel>)ViewBag.Perm;
+    //if (perm == null)
+    //{
+    //    perm = new List<PermModel>();
+    //}
+}
+<table width="100%" style="border:none">
+    <thead>
+        <tr>
+            <td align="center">
+                <div class="btn sub_btn" style="padding:0; font-weight:normal">
+                    @Html.BsButtonT("button", "btnSave", "保存", "btn btn-primary")
+                    @Html.BsButtonT("button", "btnClose", "关闭", "btn btn-primary")
+                </div>
+            </td>
+        </tr>
+    </thead>
+</table>
+<div class="easyui-layout" fit="true">
+    <div region="center" border="false" style="overflow: auto; padding: 5px;">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <table class="add_wrap" width="100%">
+                <tbody>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.ID)：
+                        </td>
+                        <td class="ipt" style="width: 75%">
+                            @Html.EditorFor(model => model.ID)
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.ID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.Name)：
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.Name)
+                            <span>&nbsp;&nbsp;</span>@Html.ValidationMessageFor(model => model.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.ParentID)：
+                        </td>
+                        <td>
+                            <input id="ParentId" name="ParentId"  class="easyui-combotree" data-options="panelHeight:'200'" style="width: 250px;
+                                height: auto" />
+                            <span>&nbsp;&nbsp;</span>@Html.ValidationMessageFor(model => model.ParentID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            Controller：
+                        </td>
+                        <td>
+                            @Html.TextBox("Controller")
+                            <span>&nbsp;&nbsp;</span>@Html.ValidationMessage("Controller")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            Action：
+                        </td>
+                        <td>
+                            @Html.TextBox("Action")
+                            <span>&nbsp;&nbsp;</span>@Html.ValidationMessage("Action")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.Url)：
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.Url)
+                            <span>&nbsp;&nbsp;</span>@Html.ValidationMessageFor(model => model.Url)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.Sort)：
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.Sort)
+                            <span>&nbsp;&nbsp;</span>@Html.ValidationMessageFor(model => model.Sort)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.Enable)：
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(model => model.Enable, new { @checked = true })
+                            <span>&nbsp;&nbsp;</span>@Html.ValidationMessageFor(model => model.Enable)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.IsLast)：
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(model => model.IsLast, new { @checked = true })
+                            <span>&nbsp;&nbsp;</span>@Html.ValidationMessageFor(model => model.IsLast)
+                        </td>
+                    </tr>
+                    @Html.HiddenFor(model => model.CreateTime)
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#ParentId').combotree({
+            url: "/CRM_Module/InitTree",
+            onLoadSuccess: function (row, data) {
+                // 需要修改样式，使菜单能够带滚动条，避免数据过多显示不了
+                $('#ParentId').combotree('tree').tree("collapseAll");
+            }
+        })
+    })
+</script>
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#Controller").focus(function () {
+            $(this).addClass("focus");
+        }).blur(function () {
+            $(this).removeClass("focus");
+            if ($(this).val() != '') {
+                $("#Url").val($(this).val());
+            }
+        });
+
+        $("#Action").focus(function () {
+            $(this).addClass("focus");
+        }).blur(function () {
+            $(this).removeClass("focus");
+            if ($(this).val() != '') {
+                $("#Url").val($("#Controller").val() + '/' + $(this).val());
+            }
+        });
+    })
+   
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnClose").click(function () {
+            window.parent.frameReturnByClose()
+        });
+        $("#btnSave").click(function () {
+            if ($("form").valid()) {
+                $.ajax({
+                    url: '@Url.Action("Create")',
+                    type: "Post",
+                    data: $("form").serialize(),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.type == 1) {
+                            window.parent.frameReturnByMes(data.message);
+                            window.parent.frameReturnByReload(true);
+                            window.parent.frameReturnByClose()
+                        }
+                        else {
+                            window.parent.frameReturnByMes(data.message);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+        $("#btnReturn").click(function () {
+            window.parent.frameReturnByClose();
+        });
+    });
+</script>

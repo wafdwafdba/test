@@ -1,0 +1,68 @@
+﻿@using GroupThink.CRM.Web;
+@using GroupThink.CRM.Common;
+@using System;
+@using GroupThink.CRM.Model.Sys;
+@{
+    ViewBag.Title = "Import";
+    Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnImport").click(function () {
+            if ($("#file").val() == '') {
+                $.show_alert('提示', '请选择要导入的文件!');
+                return false;
+            }
+            else {
+                $("#UploadForm").submit();
+            }
+        });
+        $("#btnClose").click(function () {
+            window.parent.frameReturnByClose()
+        });
+    });
+    function Download() {
+        window.location.href = "/GroupThink_CRM_Customer/Download?TempName=" + encodeURI("[导入模板]客户.xls");
+     }
+</script>
+<div class="easyui-layout" fit="true">
+	<div region="center" border="false" style="overflow:auto;padding:5px;">
+ @using (@Html.BeginForm("Import", "GroupThink_CRM_Customer", FormMethod.Post, new { Id = "UploadForm", enctype = "multipart/form-data" }))
+ {    
+ <table class="add_wrap" width="100%">
+   <tr>
+     <td valign="top" class="title">文件要求：</td>
+     <td class="ipt">导入Excel文件一定要严格按照规定的格式，注意有选择的数据内容<br />
+         文件类型：*.xls/*.xlsx<br />
+         文件大小：不能超过20MB 
+     </td>
+   </tr>
+   <tr>
+     <td class="title">文件模板：</td> 
+     <td class="ipt">                  
+       <a href="javascript:void(0)" onclick="Download()"><span style="color:Blue">点击下载</span></a>&nbsp;
+       (提示：导入文件请务必使用导入时专有数据模版)              
+     </td>
+   </tr>
+   <tr>
+     <td class="title">选择文件：</td> 
+     <td class="ipt"><input type="file" id="file" name="file" style="width:300px"  class="easyui-validatebox" data-options="required:false"/> </td>
+   </tr>
+  
+ </table>
+     <table class="add_wrap" width="100%" style="border-top:none">
+     <thead>
+      <tr>
+       <td colspan="2" align="center">
+        <div class="btn sub_btn" style="padding:0; font-weight:normal">
+                    <a href="javascript:void(0)" class="bt_node" id="btnImport"><span class="bt_t_l"></span><label><strong>导入</strong></label><span class="bt_t_r"></span></a>
+                    <a href="javascript:void(0)" class="bt_node" id="btnClose"><span class="bt_t_l"></span><label><strong>关闭</strong></label><span class="bt_t_r"></span></a>
+                </div>
+       </td>
+      </tr>
+     </thead>
+    </table>
+ }                    
+    </div>
+</div>

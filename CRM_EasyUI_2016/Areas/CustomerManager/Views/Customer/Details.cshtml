@@ -1,0 +1,186 @@
+﻿@model GroupThink.CRM.Model.Sys.GroupThink_CRM_Customer_Model
+@using GroupThink.CRM.Web;
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnClose,#btnClose-f").click(function () {
+            window.parent.frameReturnByClose()
+        });
+    });
+</script>
+
+<div data-options="region:'center',border:false" style="padding:5px;overflow:auto;overflow-x:hidden">
+    <table class="add_wrap" width="100%">
+            <thead>
+					<tr>
+						<td colspan="4" align="center">
+							<div class="btn sub_btn" style="padding:0; font-weight:normal">						
+								@*<a href="javascript:void(0)" class="bt_node" id="btnClose"><span class="bt_t_l"></span><label><strong>关闭</strong></label><span class="bt_t_r"></span></a>*@
+                                @Html.ToolButtonEdit("btnClose", "bt_node", "关闭")
+							</div>
+						</td>
+					</tr>
+				</thead>
+           <tbody>                                 
+           <tr>
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.UserName)：
+                </td>
+                <td colspan="3">
+                    @Html.DisplayFor(model=>model.UserName)
+                </td>           
+            </tr>
+            <tr>
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.CustomerName)：
+                </td>               
+                <td width="30%">
+                    @Html.DisplayFor(model => model.CustomerName)
+                </td>
+              
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.IsCompany)：
+                </td>
+                <td width="30%">
+                    @Html.DisplayFor(model => model.IsCompany_) 
+                </td>
+            </tr>                     
+            <tr>
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.CustomerPinYin)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.CustomerPinYin)
+                </td>
+                         
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.CustomerPY)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.CustomerPY)
+                </td>
+              
+            </tr> 
+            <tr>
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.CustomerLevel)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.CustomerLevel_)
+                </td>
+               
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.CustomerWeb)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.CustomerWeb)
+                </td>
+               
+            </tr>  
+            <tr>
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.CustomerType)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.CustomerType_)
+                </td>
+
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.CustomerBusiness)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.CustomerBusiness_)
+                </td>
+                
+            </tr>  
+            <tr>
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.CustomerState)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.CustomerState_)
+                </td>
+
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.CustomerProperty)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.CustomerProperty_)
+                </td>
+              
+            </tr>  
+            <tr>
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.CompanyNature)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.CompanyNature_)
+                </td>
+               
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.CustomerSource)：
+                </td>               
+                <td width="30%">                
+                    @Html.DisplayFor(model => model.CustomerSource_)
+                </td>           
+            </tr>    
+            <tr>
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.EmployeeNum)：
+                </td>               
+                <td colspan="3">                
+                    @Html.DisplayFor(model => model.EmployeeNum_)
+                </td>
+            </tr>    
+            <tr> 
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.CustomerSourceDesc)：
+                </td>               
+                <td colspan="3">                         
+                    <textarea rows="6" cols="40" disabled="disabled">@Model.CustomerSource_</textarea>
+                </td>
+            </tr>  
+            <tr>
+                <td class="title" width="20%">
+                    客户地址：
+                </td>
+                <td colspan="3">
+                    @Html.DisplayFor(model=>model.ProvinceCityArea)
+                </td>              
+            </tr>
+            <tr>
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.Address)：
+                </td>               
+                <td width="30%">
+                    @Html.DisplayFor(model => model.Address)
+                </td>
+               
+                <td class="title" width="20%">
+                    @Html.LabelFor(model => model.ZipCode)：
+                </td>               
+                <td width="30%">                                   
+                    @Html.DisplayFor(model => model.ZipCode)
+                </td>
+            </tr>                           
+        </tbody>
+    </table>
+    <table class="add_wrap" width="100%" style="border-top:none">
+				<thead>
+					<tr>
+						<td colspan="4" align="center">
+							<div class="btn sub_btn" style="padding:0; font-weight:normal">						
+								@*<a href="javascript:void(0)" class="bt_node" id="btnClose-f"><span class="bt_t_l"></span><label><strong>关闭</strong></label><span class="bt_t_r"></span></a>*@
+                                @Html.ToolButtonEdit("btnClose-f", "bt_node", "关闭")
+							</div>
+						</td>
+					</tr>
+				</thead>
+   </table>
+</div>	
+
+

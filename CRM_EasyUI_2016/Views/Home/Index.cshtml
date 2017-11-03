@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+    @Styles.Render("~/Content/easyuicss")
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/filecss")
+    @Styles.Render("~/Content/formcss/css")
+    @Scripts.Render("~/bundles/jquery")
+@*    @Scripts.Render("~/bundles/outlook")*@<script src="../../Scripts/outlook.js"
+    type="text/javascript"></script>
+    <script src="../../Scripts/easyui/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery.easyui.plus.js" type="text/javascript"></script>
+    <link href="../../Style/style.css" rel="stylesheet" type="text/css" />
+    <link href="../../Content/easyui/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../../Style/Index.css" rel="stylesheet" type="text/css" />
+
+   <body class="easyui-layout" style="overflow-y: hidden" scroll="no">
+    <noscript>
+        <div style="position: absolute; z-index: 100000; height: 2046px; top: 0px; left: 0px;
+            width: 100%; background: #E7EAEF; text-align: center;">
+            <img src="images/noscript.gif" alt='抱歉，请开启脚本支持！' />
+        </div>
+    </noscript>
+    <div region="north" split="false" border="false" style="overflow: hidden; height: 59px;
+        background: url(images/layout-browser-hd-bg.gif) #F8F8F8 repeat-x center 50%;
+        line-height: 59px; font-family: Verdana, 楷体_GB2312,黑体">
+        <div style=" background-color:#F5DEB3; float:left;color:black; width:220px;">
+            <span style="padding-left: 10px;font-size: 16px;">
+                致力于专业的CRM系统
+            </span>
+        </div>
+        <div style="float:left; background-color:#A0ABD6; width:88.5%;">
+            &nbsp;
+            <div id="user-nav" class="user_info">
+                <a href="#" class="spanclass">欢迎你:@ViewData["UserId"]</a>
+                <a href="#" class="spanclass">我的消息(0)</a>
+                <a href="#" class="spanclass">设置</a>
+                <a href="~/" class="spanclass">退出登录</a>
+
+            </div>
+
+        </div>
+         <div id="rcmenu" class="easyui-menu" style="">
+                    <div data-options="iconCls:'icon-cancel'" id="closecur">
+                        关闭
+                    </div>
+                    <div id="closeall">
+                        关闭全部
+                    </div>
+                    <div id="closeother">
+                        关闭其他
+                    </div>
+                    <div class="menu-sep">
+                    </div>
+                    <div id="closeright">
+                        关闭右侧标签页
+                    </div>
+                    <div id="closeleft">
+                        关闭左侧标签页
+                    </div>
+                </div>
+    </div>
+    <div region="south" split="false" style="height: 40px; background: #A0ABD6; border:0px solid #E9E9E9; text-align: center;">
+        <div class="footer" style=" margin-top:10px;">
+            巴超：352299658@qq.com<span id="bgclock" style="margin-left: 100px;"></span>
+        </div>
+    </div>
+    <div region="west" split="false" title="" style="width: 220px; border: 1px solid #A0ABD6;" id="west">
+        <div id="nav" class="easyui-accordion" fit="true" border="false">
+        </div>
+    </div>
+    <div id="mainPanle" region="center" style="background: #eee; border: 1px solid #A0ABD6;
+        overflow-y: hidden;">
+        <div id="tabs" class="easyui-tabs" fit="true" border="false" plain="true">
+        </div>
+    </div>
+</body>
+
+

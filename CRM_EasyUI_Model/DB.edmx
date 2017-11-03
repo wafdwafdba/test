@@ -1,0 +1,917 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GroupThink.CRM.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="GroupThinkCRMModelStoreContainer">
+          <EntitySet Name="CRM_Customer" EntityType="GroupThink.CRM.Model.Store.CRM_Customer" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CRM_CustomerConnect" EntityType="GroupThink.CRM.Model.Store.CRM_CustomerConnect" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CRM_Dept" EntityType="GroupThink.CRM.Model.Store.CRM_Dept" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CRM_Module" EntityType="GroupThink.CRM.Model.Store.CRM_Module" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CRM_ModuleOperate" EntityType="GroupThink.CRM.Model.Store.CRM_ModuleOperate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CRM_Right" EntityType="GroupThink.CRM.Model.Store.CRM_Right" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CRM_RightOperate" EntityType="GroupThink.CRM.Model.Store.CRM_RightOperate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CRM_Role" EntityType="GroupThink.CRM.Model.Store.CRM_Role" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CRM_RoleUser" EntityType="GroupThink.CRM.Model.Store.CRM_RoleUser" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CRM_Type" EntityType="GroupThink.CRM.Model.Store.CRM_Type" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CRM_User" EntityType="GroupThink.CRM.Model.Store.CRM_User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SysException" EntityType="GroupThink.CRM.Model.Store.SysException" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="V_DeptUser" EntityType="GroupThink.CRM.Model.Store.V_DeptUser" store:Type="Views" store:Schema="dbo" store:Name="V_DeptUser">
+            <DefiningQuery>SELECT 
+      [V_DeptUser].[ID] AS [ID], 
+      [V_DeptUser].[RoleID] AS [RoleID], 
+      [V_DeptUser].[RoleName] AS [RoleName], 
+      [V_DeptUser].[DeptId] AS [DeptId], 
+      [V_DeptUser].[ParentId] AS [ParentId], 
+      [V_DeptUser].[DeptName] AS [DeptName], 
+      [V_DeptUser].[UserName] AS [UserName]
+      FROM [dbo].[V_DeptUser] AS [V_DeptUser]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_CRM_MODU_REFERENCE_CRM_MODU" Association="GroupThink.CRM.Model.Store.FK_CRM_MODU_REFERENCE_CRM_MODU">
+            <End Role="CRM_Module" EntitySet="CRM_Module" />
+            <End Role="CRM_ModuleOperate" EntitySet="CRM_ModuleOperate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CRM_RIGH_REFERENCE_CRM_MODU" Association="GroupThink.CRM.Model.Store.FK_CRM_RIGH_REFERENCE_CRM_MODU">
+            <End Role="CRM_Module" EntitySet="CRM_Module" />
+            <End Role="CRM_Right" EntitySet="CRM_Right" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CRM_RIGH_REFERENCE_CRM_RIGH" Association="GroupThink.CRM.Model.Store.FK_CRM_RIGH_REFERENCE_CRM_RIGH">
+            <End Role="CRM_Right" EntitySet="CRM_Right" />
+            <End Role="CRM_RightOperate" EntitySet="CRM_RightOperate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CRM_RIGH_REFERENCE_CRM_ROLE" Association="GroupThink.CRM.Model.Store.FK_CRM_RIGH_REFERENCE_CRM_ROLE">
+            <End Role="CRM_Role" EntitySet="CRM_Role" />
+            <End Role="CRM_Right" EntitySet="CRM_Right" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CRM_ROLE_REFERENCE_CRM_DEPT" Association="GroupThink.CRM.Model.Store.FK_CRM_ROLE_REFERENCE_CRM_DEPT">
+            <End Role="CRM_Dept" EntitySet="CRM_Dept" />
+            <End Role="CRM_Role" EntitySet="CRM_Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CRM_USER_REFERENCE_CRM_ROLE" Association="GroupThink.CRM.Model.Store.FK_CRM_USER_REFERENCE_CRM_ROLE">
+            <End Role="CRM_Role" EntitySet="CRM_Role" />
+            <End Role="CRM_User" EntitySet="CRM_User" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CRM_Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsCompany" Type="int" Nullable="false" />
+          <Property Name="CustomerConnect" Type="uniqueidentifier" />
+          <Property Name="UserID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ShareID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="CustomerSource" Type="int" Nullable="false" />
+          <Property Name="CustomerType" Type="int" Nullable="false" />
+          <Property Name="CustomerBusiness" Type="int" Nullable="false" />
+          <Property Name="CustomerState" Type="int" Nullable="false" />
+          <Property Name="LastFollowTime" Type="datetime" />
+          <Property Name="FollowTimes" Type="int" />
+          <Property Name="IsPublic" Type="int" />
+          <Property Name="CusProduct" Type="int" />
+          <Property Name="CreateUserID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ModifyTime" Type="datetime" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CRM_CustomerConnect">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sex" Type="int" />
+          <Property Name="CustomerID" Type="uniqueidentifier" />
+          <Property Name="IsDefault" Type="bit" />
+          <Property Name="Tel" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="QQ" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreateUserID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="IsEnable" Type="bit" />
+        </EntityType>
+        <EntityType Name="CRM_Dept">
+          <Key>
+            <PropertyRef Name="DeptID" />
+          </Key>
+          <Property Name="DeptID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DeptName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="Des" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsEnable" Type="bit" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CRM_Module">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="ParentID" Type="varchar" MaxLength="50" />
+          <Property Name="Url" Type="varchar" MaxLength="200" />
+          <Property Name="Sort" Type="int" />
+          <Property Name="CreateUserID" Type="varchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="IsLast" Type="bit" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="Enable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CRM_ModuleOperate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="KeyCode" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="ModuleId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsValid" Type="bit" Nullable="false" />
+          <Property Name="Sort" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CRM_Right">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ModulID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="RightFlag" Type="bit" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CRM_RightOperate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsValid" Type="bit" Nullable="false" />
+          <Property Name="KeyCode" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="RightID" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CRM_Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Des" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeptId" Type="int" Nullable="false" />
+          <Property Name="Enable" Type="bit" Nullable="false" />
+          <Property Name="ParentId" Type="int" Nullable="false" />
+          <Property Name="CopyRoleID" Type="int" />
+          <Property Name="Level" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CRM_RoleUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="DeptId" Type="int" />
+        </EntityType>
+        <EntityType Name="CRM_Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="80" />
+          <Property Name="TypeID" Type="int" />
+          <Property Name="Des" Type="nvarchar" MaxLength="80" />
+          <Property Name="Sort" Type="int" />
+          <Property Name="Enable" Type="bit" />
+          <Property Name="CreateUserID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="isShow" Type="bit" />
+        </EntityType>
+        <EntityType Name="CRM_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="PassWord" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Sex" Type="int" />
+          <Property Name="Tel" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="UserState" Type="int" />
+          <Property Name="UserType" Type="int" />
+          <Property Name="CreateUserID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SysException">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="HelpLink" Type="varchar" MaxLength="500" />
+          <Property Name="Message" Type="varchar" MaxLength="500" />
+          <Property Name="Source" Type="varchar" MaxLength="500" />
+          <Property Name="StackTrace" Type="text" />
+          <Property Name="TargetSite" Type="varchar" MaxLength="500" />
+          <Property Name="Data" Type="varchar" MaxLength="500" />
+          <Property Name="CreateTime" Type="datetime" />
+        </EntityType>
+        <!--生成过程中发现错误:
+      警告 6002: 表/视图“Easy2016.dbo.V_DeptUser”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
+      -->
+        <EntityType Name="V_DeptUser">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeptId" Type="int" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="DeptName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_CRM_MODU_REFERENCE_CRM_MODU">
+          <End Role="CRM_Module" Type="GroupThink.CRM.Model.Store.CRM_Module" Multiplicity="1" />
+          <End Role="CRM_ModuleOperate" Type="GroupThink.CRM.Model.Store.CRM_ModuleOperate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CRM_Module">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CRM_ModuleOperate">
+              <PropertyRef Name="ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CRM_RIGH_REFERENCE_CRM_MODU">
+          <End Role="CRM_Module" Type="GroupThink.CRM.Model.Store.CRM_Module" Multiplicity="1" />
+          <End Role="CRM_Right" Type="GroupThink.CRM.Model.Store.CRM_Right" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CRM_Module">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CRM_Right">
+              <PropertyRef Name="ModulID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CRM_RIGH_REFERENCE_CRM_RIGH">
+          <End Role="CRM_Right" Type="GroupThink.CRM.Model.Store.CRM_Right" Multiplicity="1" />
+          <End Role="CRM_RightOperate" Type="GroupThink.CRM.Model.Store.CRM_RightOperate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CRM_Right">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CRM_RightOperate">
+              <PropertyRef Name="RightID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CRM_RIGH_REFERENCE_CRM_ROLE">
+          <End Role="CRM_Role" Type="GroupThink.CRM.Model.Store.CRM_Role" Multiplicity="1" />
+          <End Role="CRM_Right" Type="GroupThink.CRM.Model.Store.CRM_Right" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CRM_Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CRM_Right">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CRM_ROLE_REFERENCE_CRM_DEPT">
+          <End Role="CRM_Dept" Type="GroupThink.CRM.Model.Store.CRM_Dept" Multiplicity="1" />
+          <End Role="CRM_Role" Type="GroupThink.CRM.Model.Store.CRM_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CRM_Dept">
+              <PropertyRef Name="DeptID" />
+            </Principal>
+            <Dependent Role="CRM_Role">
+              <PropertyRef Name="DeptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CRM_USER_REFERENCE_CRM_ROLE">
+          <End Role="CRM_Role" Type="GroupThink.CRM.Model.Store.CRM_Role" Multiplicity="0..1" />
+          <End Role="CRM_User" Type="GroupThink.CRM.Model.Store.CRM_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CRM_Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CRM_User">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="F_GetFullDeptName" ReturnType="varchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Pid" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="P_Dept" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="P_Dept_" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GroupThink.CRM.Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="DBContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CRM_Dept" EntityType="GroupThink.CRM.Model.CRM_Dept" />
+          <EntitySet Name="CRM_ModuleOperate" EntityType="GroupThink.CRM.Model.CRM_ModuleOperate" />
+          <EntitySet Name="CRM_Role" EntityType="GroupThink.CRM.Model.CRM_Role" />
+          <AssociationSet Name="FK_CRM_ROLE_REFERENCE_CRM_DEPT" Association="GroupThink.CRM.Model.FK_CRM_ROLE_REFERENCE_CRM_DEPT">
+            <End Role="CRM_Dept" EntitySet="CRM_Dept" />
+            <End Role="CRM_Role" EntitySet="CRM_Role" />
+          </AssociationSet>
+          <EntitySet Name="SysException" EntityType="GroupThink.CRM.Model.SysException" />
+          <EntitySet Name="CRM_User" EntityType="GroupThink.CRM.Model.CRM_User" />
+          <AssociationSet Name="FK_CRM_USER_REFERENCE_CRM_ROLE" Association="GroupThink.CRM.Model.FK_CRM_USER_REFERENCE_CRM_ROLE">
+            <End Role="CRM_Role" EntitySet="CRM_Role" />
+            <End Role="CRM_User" EntitySet="CRM_User" />
+          </AssociationSet>
+          <EntitySet Name="CRM_Right" EntityType="GroupThink.CRM.Model.CRM_Right" />
+          <EntitySet Name="CRM_RightOperate" EntityType="GroupThink.CRM.Model.CRM_RightOperate" />
+          <AssociationSet Name="FK_CRM_RIGH_REFERENCE_CRM_RIGH" Association="GroupThink.CRM.Model.FK_CRM_RIGH_REFERENCE_CRM_RIGH">
+            <End Role="CRM_Right" EntitySet="CRM_Right" />
+            <End Role="CRM_RightOperate" EntitySet="CRM_RightOperate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CRM_RIGH_REFERENCE_CRM_ROLE" Association="GroupThink.CRM.Model.FK_CRM_RIGH_REFERENCE_CRM_ROLE">
+            <End Role="CRM_Role" EntitySet="CRM_Role" />
+            <End Role="CRM_Right" EntitySet="CRM_Right" />
+          </AssociationSet>
+          <FunctionImport Name="P_Dept_" ReturnType="Collection(GroupThink.CRM.Model.P_Dept__Result)" />
+          <EntitySet Name="CRM_RoleUser" EntityType="GroupThink.CRM.Model.CRM_RoleUser" />
+          <EntitySet Name="CRM_Module" EntityType="GroupThink.CRM.Model.CRM_Module" />
+          <AssociationSet Name="FK_CRM_MODU_REFERENCE_CRM_MODU" Association="GroupThink.CRM.Model.FK_CRM_MODU_REFERENCE_CRM_MODU">
+            <End Role="CRM_Module" EntitySet="CRM_Module" />
+            <End Role="CRM_ModuleOperate" EntitySet="CRM_ModuleOperate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CRM_RIGH_REFERENCE_CRM_MODU" Association="GroupThink.CRM.Model.FK_CRM_RIGH_REFERENCE_CRM_MODU">
+            <End Role="CRM_Module" EntitySet="CRM_Module" />
+            <End Role="CRM_Right" EntitySet="CRM_Right" />
+          </AssociationSet>
+          <EntitySet Name="V_DeptUser" EntityType="GroupThink.CRM.Model.V_DeptUser" />
+          <FunctionImport Name="P_Dept" ReturnType="Collection(GroupThink.CRM.Model.P_Dept_Result)" />
+          <EntitySet Name="CRM_Customer" EntityType="GroupThink.CRM.Model.CRM_Customer" />
+          <EntitySet Name="CRM_Type" EntityType="GroupThink.CRM.Model.CRM_Type" />
+          <EntitySet Name="CRM_CustomerConnect" EntityType="GroupThink.CRM.Model.CRM_CustomerConnect" />
+          </EntityContainer>
+        <EntityType Name="CRM_Dept">
+          <Key>
+            <PropertyRef Name="DeptID" />
+          </Key>
+          <Property Name="DeptID" Type="Int32" Nullable="false" />
+          <Property Name="DeptName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="Des" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="IsEnable" Type="Boolean" Nullable="false" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CRM_Role" Relationship="GroupThink.CRM.Model.FK_CRM_ROLE_REFERENCE_CRM_DEPT" FromRole="CRM_Dept" ToRole="CRM_Role" />
+        </EntityType>
+        <EntityType Name="CRM_ModuleOperate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="KeyCode" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="ModuleId" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="IsValid" Type="Boolean" Nullable="false" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CRM_Module" Relationship="GroupThink.CRM.Model.FK_CRM_MODU_REFERENCE_CRM_MODU" FromRole="CRM_ModuleOperate" ToRole="CRM_Module" />
+        </EntityType>
+        <EntityType Name="CRM_Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Des" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="DeptId" Type="Int32" Nullable="false" />
+          <Property Name="Enable" Type="Boolean" Nullable="false" />
+          <Property Name="ParentId" Type="Int32" Nullable="false" />
+          <Property Name="CopyRoleID" Type="Int32" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CRM_Dept" Relationship="GroupThink.CRM.Model.FK_CRM_ROLE_REFERENCE_CRM_DEPT" FromRole="CRM_Role" ToRole="CRM_Dept" />
+          <NavigationProperty Name="CRM_User" Relationship="GroupThink.CRM.Model.FK_CRM_USER_REFERENCE_CRM_ROLE" FromRole="CRM_Role" ToRole="CRM_User" />
+          <NavigationProperty Name="CRM_Right" Relationship="GroupThink.CRM.Model.FK_CRM_RIGH_REFERENCE_CRM_ROLE" FromRole="CRM_Role" ToRole="CRM_Right" />
+        </EntityType>
+        <Association Name="FK_CRM_ROLE_REFERENCE_CRM_DEPT">
+          <End Role="CRM_Dept" Type="GroupThink.CRM.Model.CRM_Dept" Multiplicity="1" />
+          <End Role="CRM_Role" Type="GroupThink.CRM.Model.CRM_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CRM_Dept">
+              <PropertyRef Name="DeptID" />
+            </Principal>
+            <Dependent Role="CRM_Role">
+              <PropertyRef Name="DeptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SysException">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="HelpLink" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Message" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Source" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="StackTrace" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TargetSite" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Data" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreateTime" />
+        </EntityType>
+        <EntityType Name="CRM_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="String" Name="ID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PassWord" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Sex" />
+          <Property Type="String" Name="Tel" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="RoleID" />
+          <Property Type="Int32" Name="UserState" />
+          <Property Type="Int32" Name="UserType" />
+          <Property Type="String" Name="CreateUserID" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreateTime" />
+          <NavigationProperty Name="CRM_Role" Relationship="GroupThink.CRM.Model.FK_CRM_USER_REFERENCE_CRM_ROLE" FromRole="CRM_User" ToRole="CRM_Role" />
+        </EntityType>
+        <Association Name="FK_CRM_USER_REFERENCE_CRM_ROLE">
+          <End Type="GroupThink.CRM.Model.CRM_Role" Role="CRM_Role" Multiplicity="0..1" />
+          <End Type="GroupThink.CRM.Model.CRM_User" Role="CRM_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CRM_Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CRM_User">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CRM_Right">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="String" Name="ID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ModulID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="RightFlag" Nullable="false" />
+          <Property Type="Int32" Name="RoleID" Nullable="false" />
+          <NavigationProperty Name="CRM_RightOperate" Relationship="GroupThink.CRM.Model.FK_CRM_RIGH_REFERENCE_CRM_RIGH" FromRole="CRM_Right" ToRole="CRM_RightOperate" />
+          <NavigationProperty Name="CRM_Role" Relationship="GroupThink.CRM.Model.FK_CRM_RIGH_REFERENCE_CRM_ROLE" FromRole="CRM_Right" ToRole="CRM_Role" />
+          <NavigationProperty Name="CRM_Module" Relationship="GroupThink.CRM.Model.FK_CRM_RIGH_REFERENCE_CRM_MODU" FromRole="CRM_Right" ToRole="CRM_Module" />
+        </EntityType>
+        <EntityType Name="CRM_RightOperate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="String" Name="ID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsValid" Nullable="false" />
+          <Property Type="String" Name="KeyCode" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="RightID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CRM_Right" Relationship="GroupThink.CRM.Model.FK_CRM_RIGH_REFERENCE_CRM_RIGH" FromRole="CRM_RightOperate" ToRole="CRM_Right" />
+        </EntityType>
+        <Association Name="FK_CRM_RIGH_REFERENCE_CRM_RIGH">
+          <End Type="GroupThink.CRM.Model.CRM_Right" Role="CRM_Right" Multiplicity="1" />
+          <End Type="GroupThink.CRM.Model.CRM_RightOperate" Role="CRM_RightOperate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CRM_Right">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CRM_RightOperate">
+              <PropertyRef Name="RightID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CRM_RIGH_REFERENCE_CRM_ROLE">
+          <End Type="GroupThink.CRM.Model.CRM_Role" Role="CRM_Role" Multiplicity="1" />
+          <End Type="GroupThink.CRM.Model.CRM_Right" Role="CRM_Right" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CRM_Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CRM_Right">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="P_Dept__Result" >
+          <Property Type="String" Name="Dept" Nullable="false" />
+          <Property Type="Int32" Name="DeptID" Nullable="false" />
+          <Property Type="String" Name="DeptName" Nullable="false" />
+          <Property Type="String" Name="Des" Nullable="false" />
+          <Property Type="Boolean" Name="IsEnable" Nullable="false" />
+          <Property Type="Int32" Name="ParentID" Nullable="false" />
+          <Property Type="Boolean" Name="IsDelete" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="CRM_RoleUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="String" Name="UserId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="RoleId" Nullable="false" />
+          <Property Type="Int32" Name="DeptId" />
+        </EntityType>
+        <EntityType Name="CRM_Module">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="String" Name="ID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ParentID" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Url" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Sort" />
+          <Property Type="String" Name="CreateUserID" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreateTime" />
+          <Property Type="Boolean" Name="IsLast" />
+          <Property Type="Binary" Name="Version" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Type="Boolean" Name="Enable" Nullable="false" />
+          <NavigationProperty Name="CRM_ModuleOperate" Relationship="GroupThink.CRM.Model.FK_CRM_MODU_REFERENCE_CRM_MODU" FromRole="CRM_Module" ToRole="CRM_ModuleOperate" />
+          <NavigationProperty Name="CRM_Right" Relationship="GroupThink.CRM.Model.FK_CRM_RIGH_REFERENCE_CRM_MODU" FromRole="CRM_Module" ToRole="CRM_Right" />
+        </EntityType>
+        <Association Name="FK_CRM_MODU_REFERENCE_CRM_MODU">
+          <End Type="GroupThink.CRM.Model.CRM_Module" Role="CRM_Module" Multiplicity="1" />
+          <End Type="GroupThink.CRM.Model.CRM_ModuleOperate" Role="CRM_ModuleOperate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CRM_Module">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CRM_ModuleOperate">
+              <PropertyRef Name="ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CRM_RIGH_REFERENCE_CRM_MODU">
+          <End Type="GroupThink.CRM.Model.CRM_Module" Role="CRM_Module" Multiplicity="1" />
+          <End Type="GroupThink.CRM.Model.CRM_Right" Role="CRM_Right" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CRM_Module">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CRM_Right">
+              <PropertyRef Name="ModulID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="V_DeptUser">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Type="String" Name="ID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="RoleID" />
+          <Property Type="String" Name="RoleName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="DeptId" />
+          <Property Type="Int32" Name="ParentId" />
+          <Property Type="String" Name="DeptName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="P_Dept_Result" >
+          <Property Type="Int32" Name="DeptID" Nullable="false" />
+          <Property Type="String" Name="DeptName" Nullable="false" />
+          <Property Type="String" Name="Des" Nullable="true" />
+          <Property Type="Boolean" Name="IsEnable" Nullable="false" />
+          <Property Type="Boolean" Name="IsDelete" Nullable="false" />
+          <Property Type="Int32" Name="Level" Nullable="false" />
+          <Property Type="Int32" Name="ParentID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="CRM_Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="CustomerName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="IsCompany" Nullable="false" />
+          <Property Type="Guid" Name="CustomerConnect" />
+          <Property Type="String" Name="UserID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ShareID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Address" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CustomerSource" Nullable="false" />
+          <Property Type="Int32" Name="CustomerType" Nullable="false" />
+          <Property Type="Int32" Name="CustomerBusiness" Nullable="false" />
+          <Property Type="Int32" Name="CustomerState" Nullable="false" />
+          <Property Type="DateTime" Name="LastFollowTime" />
+          <Property Type="Int32" Name="FollowTimes" />
+          <Property Type="Int32" Name="IsPublic" />
+          <Property Type="Int32" Name="CusProduct" />
+          <Property Type="String" Name="CreateUserID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreateTime" Nullable="false" />
+          <Property Type="String" Name="ModifyUserID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="ModifyTime" Nullable="false" />
+          <Property Type="Boolean" Name="IsDelete" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CRM_Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="TypeName" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="TypeID" />
+          <Property Type="String" Name="Des" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Sort" />
+          <Property Type="Boolean" Name="Enable" />
+          <Property Type="String" Name="CreateUserID" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CreateTime" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="isShow" />
+        </EntityType>
+        <EntityType Name="CRM_CustomerConnect">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="ContactName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Sex" />
+          <Property Type="Guid" Name="CustomerID" />
+          <Property Type="Boolean" Name="IsDefault" />
+          <Property Type="String" Name="Tel" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Phone" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Fax" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="QQ" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Address" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CreateUserID" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreateTime" />
+          <Property Type="Boolean" Name="IsEnable" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GroupThinkCRMModelStoreContainer" CdmEntityContainer="DBContainer">
+          <EntitySetMapping Name="CRM_Dept">
+            <EntityTypeMapping TypeName="GroupThink.CRM.Model.CRM_Dept">
+              <MappingFragment StoreEntitySet="CRM_Dept">
+                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Des" ColumnName="Des" />
+                <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CRM_ModuleOperate">
+            <EntityTypeMapping TypeName="GroupThink.CRM.Model.CRM_ModuleOperate">
+              <MappingFragment StoreEntitySet="CRM_ModuleOperate">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="KeyCode" ColumnName="KeyCode" />
+                <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CRM_Role">
+            <EntityTypeMapping TypeName="GroupThink.CRM.Model.CRM_Role">
+              <MappingFragment StoreEntitySet="CRM_Role">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Des" ColumnName="Des" />
+                <ScalarProperty Name="DeptId" ColumnName="DeptId" />
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="CopyRoleID" ColumnName="CopyRoleID" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SysException">
+            <EntityTypeMapping TypeName="GroupThink.CRM.Model.SysException">
+              <MappingFragment StoreEntitySet="SysException">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="TargetSite" ColumnName="TargetSite" />
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="HelpLink" ColumnName="HelpLink" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CRM_User">
+            <EntityTypeMapping TypeName="GroupThink.CRM.Model.CRM_User">
+              <MappingFragment StoreEntitySet="CRM_User">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserState" ColumnName="UserState" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CRM_Right">
+            <EntityTypeMapping TypeName="GroupThink.CRM.Model.CRM_Right">
+              <MappingFragment StoreEntitySet="CRM_Right">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RightFlag" ColumnName="RightFlag" />
+                <ScalarProperty Name="ModulID" ColumnName="ModulID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CRM_RightOperate">
+            <EntityTypeMapping TypeName="GroupThink.CRM.Model.CRM_RightOperate">
+              <MappingFragment StoreEntitySet="CRM_RightOperate">
+                <ScalarProperty Name="RightID" ColumnName="RightID" />
+                <ScalarProperty Name="KeyCode" ColumnName="KeyCode" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_Dept_" FunctionName="GroupThink.CRM.Model.Store.P_Dept_">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GroupThink.CRM.Model.P_Dept__Result">
+                <ScalarProperty Name="Dept" ColumnName="Dept" />
+                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="Des" ColumnName="Des" />
+                <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="CRM_RoleUser">
+            <EntityTypeMapping TypeName="GroupThink.CRM.Model.CRM_RoleUser">
+              <MappingFragment StoreEntitySet="CRM_RoleUser">
+                <ScalarProperty Name="DeptId" ColumnName="DeptId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CRM_Module">
+            <EntityTypeMapping TypeName="GroupThink.CRM.Model.CRM_Module">
+              <MappingFragment StoreEntitySet="CRM_Module">
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="IsLast" ColumnName="IsLast" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_DeptUser">
+            <EntityTypeMapping TypeName="GroupThink.CRM.Model.V_DeptUser">
+              <MappingFragment StoreEntitySet="V_DeptUser">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="DeptId" ColumnName="DeptId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="P_Dept" FunctionName="GroupThink.CRM.Model.Store.P_Dept">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GroupThink.CRM.Model.P_Dept_Result">
+                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="Des" ColumnName="Des" />
+                <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="CRM_Customer">
+            <EntityTypeMapping TypeName="GroupThink.CRM.Model.CRM_Customer">
+              <MappingFragment StoreEntitySet="CRM_Customer">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+                <ScalarProperty Name="ModifyUserID" ColumnName="ModifyUserID" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+                <ScalarProperty Name="CusProduct" ColumnName="CusProduct" />
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="FollowTimes" ColumnName="FollowTimes" />
+                <ScalarProperty Name="LastFollowTime" ColumnName="LastFollowTime" />
+                <ScalarProperty Name="CustomerState" ColumnName="CustomerState" />
+                <ScalarProperty Name="CustomerBusiness" ColumnName="CustomerBusiness" />
+                <ScalarProperty Name="CustomerType" ColumnName="CustomerType" />
+                <ScalarProperty Name="CustomerSource" ColumnName="CustomerSource" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ShareID" ColumnName="ShareID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CustomerConnect" ColumnName="CustomerConnect" />
+                <ScalarProperty Name="IsCompany" ColumnName="IsCompany" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CRM_Type">
+            <EntityTypeMapping TypeName="GroupThink.CRM.Model.CRM_Type">
+              <MappingFragment StoreEntitySet="CRM_Type">
+                <ScalarProperty Name="isShow" ColumnName="isShow" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Des" ColumnName="Des" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CRM_CustomerConnect">
+            <EntityTypeMapping TypeName="GroupThink.CRM.Model.CRM_CustomerConnect">
+              <MappingFragment StoreEntitySet="CRM_CustomerConnect">
+                <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="QQ" ColumnName="QQ" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="DB">
+        <EntityTypeShape EntityType="GroupThink.CRM.Model.CRM_Dept" Width="1.5" PointX="0.75" PointY="1.375" Height="2.3520719401041665" IsExpanded="true" />
+        <EntityTypeShape EntityType="GroupThink.CRM.Model.CRM_ModuleOperate" Width="1.5" PointX="3" PointY="6.25" Height="2.3520719401041665" IsExpanded="true" />
+        <EntityTypeShape EntityType="GroupThink.CRM.Model.CRM_Role" Width="1.5" PointX="3" PointY="1.125" Height="2.9251310221354152" IsExpanded="true" />
+        <AssociationConnector Association="GroupThink.CRM.Model.FK_CRM_ROLE_REFERENCE_CRM_DEPT" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.5510359700520833" />
+          <ConnectorPoint PointX="3" PointY="2.5510359700520833" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="GroupThink.CRM.Model.SysException" Width="1.5" PointX="5.375" PointY="5.75" Height="2.5430916341145817" />
+        <EntityTypeShape EntityType="GroupThink.CRM.Model.CRM_User" Width="1.5" PointX="5.25" PointY="1" Height="3.1161507161458317" />
+        <AssociationConnector Association="GroupThink.CRM.Model.FK_CRM_USER_REFERENCE_CRM_ROLE" >
+          <ConnectorPoint PointX="4.5" PointY="2.6205753580729159" />
+          <ConnectorPoint PointX="5.25" PointY="2.6205753580729159" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="GroupThink.CRM.Model.CRM_Right" Width="1.5" PointX="8.25" PointY="4" Height="2.3520719401041674" />
+        <EntityTypeShape EntityType="GroupThink.CRM.Model.CRM_RightOperate" Width="1.5" PointX="10.5" PointY="4.125" Height="1.9700325520833317" />
+        <AssociationConnector Association="GroupThink.CRM.Model.FK_CRM_RIGH_REFERENCE_CRM_RIGH" >
+          <ConnectorPoint PointX="9.75" PointY="5.1100162760416659" />
+          <ConnectorPoint PointX="10.5" PointY="5.1100162760416659" />
+        </AssociationConnector>
+        <AssociationConnector Association="GroupThink.CRM.Model.FK_CRM_RIGH_REFERENCE_CRM_ROLE" >
+          <ConnectorPoint PointX="3.75" PointY="4.2411507161458326" />
+          <ConnectorPoint PointX="3.75" PointY="5.1760359700520837" />
+          <ConnectorPoint PointX="8.25" PointY="5.1760359700520837" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="GroupThink.CRM.Model.CRM_RoleUser" Width="1.5" PointX="7.375" PointY="0.75" Height="1.5879931640624996" />
+        <EntityTypeShape EntityType="GroupThink.CRM.Model.CRM_Module" Width="1.5" PointX="0.75" PointY="4.625" Height="3.3071704101562496" />
+        <AssociationConnector Association="GroupThink.CRM.Model.FK_CRM_MODU_REFERENCE_CRM_MODU" >
+          <ConnectorPoint PointX="2.25" PointY="7.0910852050781248" />
+          <ConnectorPoint PointX="3" PointY="7.0910852050781248" />
+        </AssociationConnector>
+        <AssociationConnector Association="GroupThink.CRM.Model.FK_CRM_RIGH_REFERENCE_CRM_MODU" >
+          <ConnectorPoint PointX="2.25" PointY="4.8380179850260419" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="4.838017985026041" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="4.8380179850260419" />
+          <ConnectorPoint PointX="8.25" PointY="4.8380179850260419" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="GroupThink.CRM.Model.V_DeptUser" Width="1.5" PointX="7.375" PointY="7.75" Height="2.3520719401041674" />
+        <EntityTypeShape EntityType="GroupThink.CRM.Model.CRM_Customer" Width="1.5" PointX="0.75" PointY="9.75" Height="4.8353279622395817" />
+        <EntityTypeShape EntityType="GroupThink.CRM.Model.CRM_Type" Width="1.5" PointX="2.75" PointY="9.75" Height="2.7341113281250031" />
+        <EntityTypeShape EntityType="GroupThink.CRM.Model.CRM_CustomerConnect" Width="1.5" PointX="9.375" PointY="7.75" Height="3.6892097981770888" />
+        </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

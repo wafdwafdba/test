@@ -1,0 +1,222 @@
+﻿@model GroupThink.CRM.Model.Sys.CRM_Role_Model
+@using GroupThink.CRM.Common;
+@using CRM_EasyUI_2016;
+@using GroupThink.CRM.Model.Sys;
+@{
+    //List<PermModel> perm = (List<PermModel>)ViewBag.Perm;
+    //if (perm == null)
+    //{
+    //    perm = new List<PermModel>();
+    //}
+    //ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
+}
+<script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+<div id="dlg" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false">
+</div>
+<script type="text/javascript">
+    //加载id和状态
+    $(document).ready(function () {
+        $("#txtorganizeId").val('@ViewData["DeptId"]');
+        var DeptId1 = $("#txtorganizeId").val(); //id
+        var url = "/CRM_Role/InitTreeByDepID?depId=" + DeptId1;
+        $('#DeptId').combotree({
+            url: "/CRM_Dept/InitTree",
+            onClick: function (node) {
+                $("#txtorganizeId").val(node.id);
+                url = "/CRM_Role/InitTreeByDepID?depId=" + node.id;
+                initRole(url);
+            },
+            onLoadSuccess: function (node) {
+                if (DeptId1 == 0) {
+                    var da = $("#DeptId").combotree('tree').tree("getRoot");
+                    $('#DeptId').combotree('setValue', da.id);
+                }
+            }
+        })
+        if (DeptId1 != 0) {
+            $('#DeptId').combotree('setValue', DeptId1);
+            initRole(url);
+        }
+    });
+    function initRole(url) {
+        $('#ParentId').combotree({
+            url: url,
+            onLoadSuccess: function (row, data) {
+                // 需要修改样式，使菜单能够带滚动条，避免数据过多显示不了
+                $('#ParentId').combotree('tree').tree("collapseAll");
+            }
+        })
+    }
+</script>
+
+<script type="text/javascript">
+    //角色权限
+    $(function () {
+        $('#CopyRoleId').combotree({
+            url: "/CRM_Role/InitTree",
+            onLoadSuccess: function (row, data) {
+                // 需要修改样式，使菜单能够带滚动条，避免数据过多显示不了
+                $('#CopyRoleId').combotree('tree').tree("collapseAll");
+            }
+        })
+    });
+
+
+</script>
+<script type="text/javascript">
+
+    $(function () {
+        $("#btnClose").click(function () {
+            window.parent.frameReturnByClose()
+        });
+
+        function checkDrop() {
+            $("#txtorganizeId").val('@ViewData["DeptId"]');
+            var DeptId1 = $("#txtorganizeId").val(); //id
+            var res = false;
+            //var dep = $("#DeptId  option:selected").val();
+            var dep = $("#txtorganizeId").val()
+            //清除标红提示语
+            $('#valid_DeptId').removeClass('field-validation-error');
+            $('#valid_DeptId').html('');
+            if (DeptId1 == 0) {
+                var da = $("#DeptId").combotree('tree').tree("getRoot");
+                dep = da.id;
+            }
+            if (dep != 0) {
+                res = true;
+            }
+            else {
+                res = false;
+                $('#valid_DeptId').addClass('field-validation-error').html('<span generated="true" class="">部门必须选择</span>');
+            }
+            return res;
+        }
+
+        $("#btnSave").click(function () {
+            if ($("#CreateForm").valid() && checkDrop()) {
+                $.ajax({
+                    url: "/CRM_Role/Create",
+                    type: "Post",
+                    data: $("#CreateForm").serialize(),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data == 1) {
+                            $("#Name").val('');
+                            $("#CopyRoleId").val('0');
+                            $("#DeptId").val('0');
+                            $("#ParentId").val('0');
+                            $("#Des").val('');
+                            $("#Enable").attr("checked", "checked");
+
+                            window.parent.frameReturnByMes("添加成功！");
+                            window.parent.frameReturnByReload();
+                            window.parent.frameReturnByClose();
+
+                            //$.messageBox5s('提示', msg.successOperate);
+                            //setTimeout('window.location.href = "/CRM_Role/Create"', 5000);
+                        }
+                        else {
+                            $.messageBox5s('提示', msg.failOperate);
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    
+</script>
+<table width="100%" style="border: none">
+    <thead>
+        <tr>
+            <td colspan="4" align="center">
+                <div class="btn sub_btn" style="padding: 0; font-weight: normal">
+                     @Html.BsButtonT("submit", "btnSave", "保存", "btn btn-primary")
+                    @Html.BsButtonT("button", "btnClose", "关闭", "btn btn-primary")
+                </div>
+            </td>
+        </tr>
+    </thead>
+</table>
+<div class="easyui-layout" fit="true">
+    <div region="center" border="false" style="overflow: auto; padding: 5px;">
+        @using (Html.BeginForm("Create", "CRM_Role", null, FormMethod.Post, new { Id = "CreateForm" }))
+        {   
+            @Html.ValidationSummary(true)
+            @Html.Hidden("IsDel", "0")
+            <table class="add_wrap" width="100%">
+                <tbody>
+                    <tr>
+                        <td class="title">
+                            @Html.Hidden("txtorganizeId", "0")
+                            @Html.LabelFor(model => model.Name)：
+                        </td>
+                        <td class="ipt" style="width: 75%">
+                            @Html.TextBoxFor(model => model.Name)<label class="lbl">*</label>
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            角色权限：
+                        </td>
+                        <td>
+                            <select id="CopyRoleId" name="CopyRoleId" style="width: 250px">
+                                <option value="0">--请选择--</option>
+                            </select>
+                        @*    <a href="#" onclick="ViewPower()"><span style="color: Blue">查看权限</span></a>
+                            <br />*@
+                            <span style="color: Red">将选中的角色权限复制给当前角色（可不选择）</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.DeptId)：
+                        </td>
+                        <td>
+                            <select id="DeptId" name="DeptId" style="width: 250px">
+                                <option value="0">--请选择--</option>
+                            </select>
+                            <span>&nbsp;&nbsp;</span> <span data-valmsg-replace="true" id="valid_DeptId" data-valmsg-for=""
+                                class="field-validation-valid"></span>
+                            @Html.ValidationMessageFor(model => model.DeptId)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            角色上级：
+                        </td>
+                        <td>
+                            <select id="ParentId" name="ParentId" style="width: 250px">
+                                <option value="0">--请选择--</option>
+                            </select>
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.ParentId)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.Des)：
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.Des)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.Enable)：
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(model => model.Enable)
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.Enable)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

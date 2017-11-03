@@ -1,0 +1,208 @@
+﻿@model GroupThink.CRM.Model.Sys.CRM_User_Model
+@using GroupThink.CRM.Common;
+@using CRM_EasyUI_2016;
+@using GroupThink.CRM.Model.Sys;
+@{
+    //List<PermModel> perm = (List<PermModel>)ViewBag.Perm;
+    //if (perm == null)
+    //{
+    //    perm = new List<PermModel>();
+    //}
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
+}
+
+<table width="100%" style="border: none">
+    <thead>
+        <tr>
+            <td colspan="4" align="center">
+                <div class="btn sub_btn" style="padding: 0; font-weight: normal">
+                    @Html.BsButtonT("button", "btnSave", "保存", "btn btn-primary")
+                    @Html.BsButtonT("button", "btnClose", "关闭", "btn btn-primary")
+                </div>
+            </td>
+        </tr>
+    </thead>
+</table>
+    <div class="easyui-layout" fit="true">
+    <div region="center" border="false" style="overflow: auto; padding: 5px;">
+        @using (Html.BeginForm("Edit", "CRM_User", null, FormMethod.Post, new { Id = "EditForm" }))
+        {
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model=>model.PassWord)
+            @Html.HiddenFor(model => model.CreateTime)
+            @Html.HiddenFor(model => model.CreateUserID)
+            @Html.HiddenFor(model => model.UserState)
+            <table class="add_wrap" width="100%">
+                <tbody>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.ID)：
+                        </td>
+                        <td class="ipt" colspan="3">
+                            @Html.TextBoxFor(model => model.ID)<label class="lbl">*</label>
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.ID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.UserName)：
+                        </td>
+                        <td>
+                             @Html.TextBoxFor(model => model.UserName)<label class="lbl">*</label>
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.UserName)
+                        </td>
+                         <td class="title">
+                            @Html.LabelFor(model => model.UserType)：
+                        </td>
+                        <td>
+                         @Html.DropDownListFor(model => model.UserType, (IEnumerable<SelectListItem>)ViewData["UserType"], "--请选择--")
+                         @Html.ValidationMessageFor(model => model.UserType)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.Tel)：
+                        </td>
+                        <td>
+                           @Html.TextBoxFor(model => model.Tel)
+                        </td>
+                         <td class="title">
+                            @Html.LabelFor(model => model.Sex)：
+                        </td>
+                        <td>
+                             @Html.RadioButtonFor(model => model.Sex, 1, new { @id = "radio1", @name = "rdolstState", @checked = true })女
+                             @Html.RadioButtonFor(model => model.Sex, 0, new { @id = "radio0", @name = "rdolstState" })男
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.deptID)：
+                        </td>
+                        <td>
+                            <select id="DeptID" name="DeptID">
+                            <option value="0">--请选择--</option>
+                              </select>
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.deptID)
+                        </td>
+                         <td class="title">
+                            @Html.LabelFor(model => model.RoleID)：
+                        </td>
+                        <td>
+                              <select id="RoleId" name="RoleId">
+                              <option value="0">--请选择--</option>
+                               </select>
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.RoleID)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+<script type="text/javascript">
+    //查询部门列表
+    $.ajax({
+        url: "/CRM_Dept/GetParentList",
+        type: "Post",
+        dataType: "json",
+        success: function (data) {
+            document.getElementById("DeptID").options.length = 0;
+            $("#DeptID").append("<option value='0'>--请选择--</option>");
+            for (var i = 0; i < data.length; i++) {
+                var level = "";
+                for (var j = 0; j < data[i].Level; j++) {
+                    level += "&nbsp;&nbsp;&nbsp";
+                }
+                if (data[i].DeptID == '@Model.deptID') {
+                    $("#DeptID").append("<option value='" + data[i].DeptID + "' selected='true'>" + level + "" + data[i].DeptName + "</option>");
+                    //如果选中，则查询选中的角色
+                    $.ajax({
+                        url: "/CRM_Role/SelectDept",
+                        type: "Post",
+                        data: { DeptID: '@Model.deptID' },
+                        dataType: "json",
+                        success: function (data) {
+                            document.getElementById("RoleId").options.length = 0;
+                            $("#RoleId").append("<option value='0'>--请选择--</option>");
+                            for (var i = 0; i < data.length; i++) {
+                                var level = "";
+                                for (var j = 0; j < data[i].Level; j++) {
+                                    level += "&nbsp;&nbsp;&nbsp";
+                                }
+                                $("#RoleId").append("<option value='" + data[i].ID + "' selected='true'>" + level + "" + data[i].Name + "</option>");
+                            }
+                        }
+                    });
+
+                } else {
+                    $("#DeptID").append("<option value='" + data[i].DeptID + "'>" + level + "" + data[i].DeptName + "</option>");
+                }
+            }
+        }
+    });
+
+    $(function () {
+        $("#UserType").val('@Model.UserType');
+        $("#DeptID").val('@Model.deptID');
+        $("#RoleId").val('@Model.RoleID');
+
+        //部门ID改变之后带出角色列表
+        $("#DeptID").change(function () {
+            $.ajax({
+                url: "/CRM_Role/SelectDept",
+                type: "Post",
+                data: { DeptID: $("#DeptID").val() },
+                dataType: "json",
+                success: function (data) {
+                    document.getElementById("RoleId").options.length = 0;
+                    $("#RoleId").append("<option value='0'>--请选择--</option>");
+                    for (var i = 0; i < data.length; i++) {
+                        var level = "";
+                        for (var j = 0; j < data[i].Level; j++) {
+                            level += "&nbsp;&nbsp;&nbsp";
+                        }
+                        $("#RoleId").append("<option value='" + data[i].ID + "'>" + level + "" + data[i].Name + "</option>");
+                    }
+                }
+            });
+        });
+
+
+        $("#btnClose").click(function () {
+            window.parent.frameReturnByClose()
+        });
+
+        $("#btnSave").click(function () {
+            if ($("#EditForm").valid()) {
+                $.ajax({
+                    url: "/CRM_User/Edit?RoleId=" + $("#RoleId").val(),
+                    type: "Post",
+                    data: $("#EditForm").serialize(),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data == 1) {
+                            window.parent.frameReturnByMes("修改成功!!");
+                            window.parent.frameReturnByReload(true);
+                            window.parent.frameReturnByClose();
+                        }
+                        else if (data == -1) {
+                            window.parent.frameReturnByMes("请勿重复添加部门名称");
+                        }
+                        else {
+                            window.parent.frameReturnByMes(msg.failOperate);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+
+    
+    
+</script>

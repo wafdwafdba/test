@@ -1,0 +1,186 @@
+﻿@model GroupThink.CRM.Model.Sys.GroupThink_CRM_RoleUser_Model
+@using GroupThink.CRM.Web;
+@using GroupThink.CRM.Common;
+@using System;
+@{
+    ViewBag.Title = "SelectUser";
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+}
+<div region="center" border="false" id="div_overflow" style="overflow: auto">
+    <div class="easyui-layout" fit="true" style="min-width: 500px; min-height: 350px;">
+        <div region="north" border="false" class="north_box" style="padding: 0 5px;">
+            <table width="100%" style="border: none">
+                <thead>
+                    <tr>
+                        <td align="center">
+                            <div class="btn sub_btn" style="padding: 0; font-weight: normal">
+                                @Html.ToolButtonEdit("btnSave", "bt_node", "保存")
+                                @Html.ToolButtonEdit("btnClose", "bt_node", "关闭")
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+            <div class="b-search">
+                <ul class="ul_s1">
+                    <li>
+                        <label style="padding-left: 18px;">
+                            部门：</label>
+                        @*@Html.DropDownList("DeptId", (IEnumerable<SelectListItem>)ViewData["Dept"], "--请选择--")*@
+                        <select id="DeptId" name="DeptId">
+                        </select>
+                        <a id="btnQuery" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-search"
+                            style="padding-left: 20px;">查询</span></span></a> </li>
+                </ul>
+            </div>
+        </div>
+        <div region="center" border="false" style="padding: 5px;">
+            <table id="List">
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $.parser.onComplete = function () {
+        layoutOverflow();
+    }
+    $(document).ready(function () {
+        $.ajax({
+            url: "/GroupThink_CRM_Dept/GetDept",
+            type: "Post",
+            dataType: "json",
+            success: function (data) {
+                document.getElementById("DeptId").options.length = 0;
+                $("#DeptId").append("<option value='0'>--请选择--</option>");
+                for (var i = 0; i < data.length; i++) {
+                    var level = "";
+                    for (var j = 0; j < data[i].Level; j++) {
+                        level += "&nbsp;";
+                    }
+                    $("#DeptId").append("<option value='" + data[i].DeptId + "'>" + level + "" + data[i].DeptName + "</option>");
+                }
+            }
+        });
+    });
+
+    $(function () {
+        $('#List').datagrid({
+            url: '/GroupThink_CRM_User/GetList?queryStr=' + '@ViewData["uid"]',            
+            methord: 'post',           
+            fitColumns: true,
+            fit:true,
+            sortName: 'Id',
+            sortOrder: 'asc',
+            //idField: 'Id',
+            pageSize: SystemConfig.PageSize,
+            pageList: SystemConfig.PageList,
+            pagination: true,
+            striped: true, //奇偶行是否区分
+            singleSelect: true, //多选模式
+            rownumbers: true, //行号
+            columns: [[
+                { field: 'ck', checkbox: true },
+                { field: 'itemid', title: '用户名', width: 100, align: 'left',
+                    formatter: function (value, rowData) {
+                        return rowData.Id;
+                    }
+                },
+                { field: 'UserName', title: '用户姓名', width: 100, align: 'left' },
+                { field: 'DeptName', title: '部门', width: 100, align: 'left' }
+            ]]
+
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnQuery").click(function () {
+            var dept;
+            if ($('#DeptId').val() == '' || $('#DeptId').val() == null) {
+                dept = '0';
+            } else {
+                dept = $('#DeptId').val();
+            }
+            $('#List').datagrid({
+                //url: '/GroupThink_CRM_User/GetList_?deptId=' + encodeURI(dept) + '&roleId=0' + '&userType=0' + '&userState=0'
+                url: '/GroupThink_CRM_User/GetList__?uid=' + '@ViewData["uid"]' + '&deptId=' + encodeURI(dept)
+            });
+        });
+        $("#btnSave").click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row == null) {
+                $.show_alert('提示', '请选择用户!');
+            }
+            else {
+                if ('@ViewData["act"]' == "Move") {
+                    var uids = '@ViewData["UserId"]';
+                    var arr = uids.split(',');
+                    var S = true;
+                    for (var j = 0; j < arr.length; j++) {
+                        if (arr[j] == row.Id) {
+                            S = false;
+                            $.show_alert('提示', '被转移人和当前销售人员不能是同一个人，请更换一个销售人员!');
+                            break;
+                        }
+                    }
+                    if (S) {
+                        $.ajax({
+                            url: "/GroupThink_CRM_Customer/Move",
+                            type: "Post",
+                            data: { CustomerId: '@ViewData["CustomerId"]', UserId: row.Id },
+                            dataType: "json",
+                            success: function (data) {
+                                if (data == 1) {
+                                    window.parent.frameReturnByMes(msg.successRecord);
+                                    window.parent.frameReturnByReload(false);
+                                    window.parent.frameReturnByClose()
+                                }
+                                else {
+                                    window.parent.frameReturnByMes(msg.failRecord);
+                                }
+                            }
+                        });
+                    }
+                }
+                else if ('@ViewData["act"]' == "Share") {
+                    var uids = '@ViewData["UserId"]';
+                    var arr = uids.split(',');
+                    var S = true;
+                    for (var j = 0; j < arr.length; j++) {
+                        if (arr[j] == row.Id) {
+                            S = false;
+                            $.show_alert('提示', '被共享人和当前销售人员不能是同一个人，请更换一个销售人员!');
+                            break;
+                        }
+                    }
+                    if (S) {
+                        $.ajax({
+                            url: "/GroupThink_CRM_Customer/Share",
+                            type: "Post",
+                            data: { CustomerId: '@ViewData["CustomerId"]', UserId: row.Id },
+                            dataType: "json",
+                            success: function (data) {
+                                if (data == 1) {
+                                    window.parent.frameReturnByMes(msg.successRecord);
+                                    window.parent.frameReturnByReload(false);
+                                    window.parent.frameReturnByClose()
+                                }
+                                else {
+                                    window.parent.frameReturnByMes(msg.failRecord);
+                                }
+                            }
+                        });
+                    }
+                }
+                else {
+                    window.parent.document.getElementById("UserId").value = row.Id;
+                    window.parent.document.getElementById("UserName").value = row.UserName;
+                    window.parent.frameReturnByClose();
+                }
+            }
+        });
+        $("#btnClose").click(function () {
+            window.parent.frameReturnByClose();
+        });
+    });
+</script>

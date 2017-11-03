@@ -1,0 +1,53 @@
+﻿@model GroupThink.CRM.Model.Sys.CRM_Dept_Model
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
+}
+<table width="100%" style="border: none">
+    <thead>
+        <tr>
+            <td colspan="4" align="center">
+                <div class="btn sub_btn" style="padding: 0; font-weight: normal">
+                    @Html.BsButtonT("button", "btnClose", "关闭", "btn btn-primary")
+                </div>
+            </td>
+        </tr>
+    </thead>
+</table>
+ <div region="center" border="false" style="overflow:auto;padding:5px;">
+		<table class="add_wrap" width="100%">
+        <tbody>
+		<tr>
+		   <td class="title" style="width:20%">
+			部门名称：
+		   </td>
+		   <td>
+				@Html.DisplayFor(model => model.DeptName)
+		   </td>
+		</tr>
+		<tr>
+		   <td class="title" style="width:20%">
+			描述：
+		   </td>
+		   <td>
+				@Html.DisplayFor(model => model.Des)
+		   </td>
+		</tr>       
+        <tr>
+		   <td class="title" style="width:20%">
+			是否启用：
+		   </td>
+		   <td>
+				@Html.DisplayFor(model => model.IsEnable)
+		   </td>
+		</tr>			      
+ </tbody>
+ </table>
+ </div>
+ <script type="text/javascript">
+     $(function () {
+         $("#btnClose").click(function () {
+             window.parent.frameReturnByClose()
+         });
+     });
+</script>

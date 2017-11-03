@@ -1,0 +1,133 @@
+﻿@model GroupThink.CRM.Model.Sys.CRM_Dept_Model
+@using GroupThink.CRM.Common;
+@using CRM_EasyUI_2016;
+@using GroupThink.CRM.Model.Sys;
+@{
+    //List<PermModel> perm = (List<PermModel>)ViewBag.Perm;
+    //if (perm == null)
+    //{
+    //    perm = new List<PermModel>();
+    //}
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
+}
+
+<div id="dlg" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false">
+</div>
+<table width="100%" style="border: none">
+    <thead>
+        <tr>
+            <td colspan="4" align="center">
+                <div class="btn sub_btn" style="padding: 0; font-weight: normal">
+                    @Html.BsButtonT("button", "btnSave", "保存", "btn btn-primary")
+                    @Html.BsButtonT("button", "btnClose", "关闭", "btn btn-primary")
+                </div>
+            </td>
+        </tr>
+    </thead>
+</table>
+<div class="easyui-layout" fit="true">
+    <div region="center" border="false" style="overflow: auto; padding: 5px;">
+        @using (Html.BeginForm("Create", "CRM_Dept", null, FormMethod.Post, new { Id = "CreateForm" }))
+        {
+            @Html.ValidationSummary(true)
+            <table class="add_wrap" width="100%">
+                <tbody>
+                    <tr>
+                        <td class="title">
+                            @Html.Hidden("selectParentId", "1")
+                            @Html.LabelFor(model => model.DeptName)：
+                        </td>
+                        <td class="ipt" style="width: 75%">
+                            @Html.TextBoxFor(model => model.DeptName)<label class="lbl">*</label>
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.DeptName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.ParentID)：
+                        </td>
+                        <td>
+                            <select id="ParentId" style="width:200px">
+                                <option value="1">--请选择--</option>
+                            </select>
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.ParentID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.Des)：
+                        </td>
+                        <td >
+                            @Html.TextAreaFor(model => model.Des, new { rows = "6", cols = "60" })
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.Des)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            @Html.LabelFor(model => model.IsEnable)：
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(model => model.IsEnable)
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.IsEnable)
+                             <span>&nbsp;&nbsp;</span>
+                            @*@Html.LabelFor(model => model.IsFenCompany)：
+                             <span>&nbsp;&nbsp;</span>
+                               @Html.CheckBoxFor(model => model.IsFenCompany)
+                            <span>&nbsp;&nbsp;</span>
+                            @Html.ValidationMessageFor(model => model.IsFenCompany)*@
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#btnClose").click(function () {
+            window.parent.frameReturnByClose()
+        });
+        $("#btnSave").click(function () {
+            if ($("#CreateForm").valid()) {
+                $.ajax({
+                    url: "/CRM_Dept/Create",
+                    type: "Post",
+                    //data: $("#CreateForm").serialize(),
+                    data: { DeptName: $("#DeptName").val(), ParentId: $('#ParentId').combotree("getValue"), Des: $("#Des").val(), Enable: $("#IsEnable").is(':checked') },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data == 1) {
+                            window.parent.frameReturnByMes("部门添加成功！！");
+                            window.parent.frameReturnByReload(true);
+                            window.parent.frameReturnByClose()
+                        }
+                        else if (data == -1) {
+                            window.parent.frameReturnByMes("请勿重复添加部门名称");
+                        }
+                        else {
+                            window.parent.frameReturnByMes(msg.failOperate);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+    
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#ParentId').combotree({
+            url: "/CRM_Dept/InitTree",
+            onLoadSuccess: function (row, data) {
+                // 需要修改样式，使菜单能够带滚动条，避免数据过多显示不了
+                //                $('#ParentId').combotree('tree').tree("collapseAll");
+            }
+        })
+    })
+</script>

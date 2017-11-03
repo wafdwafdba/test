@@ -1,0 +1,81 @@
+﻿@model GroupThink.CRM.Model.Sys.GroupThink_CRM_Province_Model
+@using GroupThink.CRM.Common;
+@using GroupThink.CRM.Model.Sys;
+@using GroupThink.CRM.Web;
+
+@{
+    ViewBag.Title = "SelectProvince";
+    Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
+}
+
+ <script type="text/javascript">
+
+     $(function () {
+         $("#btnSave").click(function () {
+             var ProvinceID = $(":radio[name='Province']:checked").val(); ;
+             var ProvinceName = $(":radio[name='Province']:checked")[0].nextSibling.nodeValue.replace(/^(\s|\xA0)+|(\s|\xA0)+$/g, '');
+
+             if (ProvinceID == null || ProvinceID == "") {
+                 $.messageBox5s('提示', '请选择省份!');
+             }
+             else {
+                 window.parent.document.getElementById("Id").value = "AreaCustomer" + ProvinceID;
+                 window.parent.document.getElementById("Name").value = "（" + ProvinceName + "）" + "客户管理";
+                 window.parent.document.getElementById("Controller").value = "GroupThink_CRM_AreaCustomer" + ProvinceID;
+                 window.parent.document.getElementById("Action").value = "Index";
+                 window.parent.document.getElementById("Url").value = "GroupThink_CRM_AreaCustomer" + ProvinceID;
+                 //window.parent.document.getElementById("ParentId").value = "CustomerManagement";
+                 window.parent.document.getElementById("IsLast").checked = true;
+                 window.parent.frmReturnByClose();
+             }
+         });
+         $("#btnClose").click(function () {
+             window.parent.frmReturnByClose();
+         });
+     });
+
+</script>
+<div class="easyui-layout" fit="true">
+<div region="center" border="false" style="overflow: auto; padding: 5px;">
+@using (Html.BeginForm("", "", null, FormMethod.Post, new { Id = "SelectProvinceForm" }))
+{
+    <br />
+    <table> 
+        <tbody>           
+             <tr><td>           
+             @for (int i = 0; i < ((List<GroupThink_CRM_Province_Model>)ViewData["Province"]).Count(); i++)
+              {
+                    var t = ((List<GroupThink_CRM_Province_Model>)ViewData["Province"]).ElementAt(i).ProvinceName;
+                    var v = ((List<GroupThink_CRM_Province_Model>)ViewData["Province"]).ElementAt(i).ProvinceID;
+
+                    if ((i+1) % 3 == 0)
+                    {
+                       <input type="radio" name="Province" value="@v"/>@t <br />
+                    }
+                    else
+                    {
+                       <input type="radio" name="Province" value="@v"/>@t 
+                    }
+              }  
+             </td></tr>                                                                                
+        </tbody>
+    </table>
+    <br />  
+}
+</div>
+
+<div region="south" border="false" style="padding:5px;">
+<table width="100%" style="border:none">
+    <thead>
+        <tr>
+            <td align="center">
+                <div class="btn sub_btn" style="padding:0; font-weight:normal">
+                    <a href="javascript:void(0)" class="bt_node" id="btnSave"><span class="bt_t_l"></span><label><strong>保存</strong></label><span class="bt_t_r"></span></a>
+                    <a href="javascript:void(0)" class="bt_node" id="btnClose"><span class="bt_t_l"></span><label><strong>关闭</strong></label><span class="bt_t_r"></span></a>
+                </div>
+            </td>
+        </tr>
+    </thead>
+</table>
+</div>
+</div>
