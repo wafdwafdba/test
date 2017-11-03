@@ -27,7 +27,7 @@ $(function () {
 function InitLeftMenu() {
     $("#nav").accordion({ animate: true });
     $.each(_menus, function (i, n) {
-        var menulist = '';
+        var menulist = ''; 
         menulist += '<ul>';
         $.each(n.menus, function (j, o) {
             if (o != undefined)
